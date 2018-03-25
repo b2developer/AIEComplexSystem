@@ -1,5 +1,5 @@
-﻿  Application2D.cpp
-  main.cpp
+﻿  main.cpp
+  Application2D.cpp
   Generating Code...
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  GameClient.vcxproj -> C:\Users\Brad\Desktop\aieBootstrap-master\\bin\GameClient_DEBUG.exe
+  GameClient.vcxproj -> C:\Users\s171541\Desktop\AIEComplexProject\trunk\\bin\GameClient_DEBUG.exe

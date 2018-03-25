@@ -11,7 +11,7 @@ int main()
 {
 
 	TcpSocket socket;
-	Socket::Status status = socket.connect("10.0.0.100", 5000);
+	Socket::Status status = socket.connect("10.10.0.128", 5000);
 
 	if (status != Socket::Done)
 	{

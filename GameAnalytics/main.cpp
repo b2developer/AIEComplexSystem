@@ -19,6 +19,10 @@ int main()
 		//error
 	}
 
+	char data[100] = "My name is Barry Allen, and I'm the fastest man alive.";
+
+	socket.send(data, 100);
+
 	std::cout << "Success";
 
 	return 0;

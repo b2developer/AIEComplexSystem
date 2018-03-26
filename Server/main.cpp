@@ -26,8 +26,19 @@ int main()
 			continue;
 		}
 
+		char msg[100];
+		size_t r = 0;
+
+		client.receive(msg, 100, r);
+
+		std::cout << msg;
+
 		break;
 	}
+
+	int a;
+
+	std::cin >> a;
 
 	std::cout << "Success";
 

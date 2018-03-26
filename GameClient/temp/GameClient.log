@@ -1,3 +1,5 @@
-﻿  Application2D.cpp
-  main.cpp
-LINK : fatal error LNK1181: cannot open input file 'C:\Users\s171541\Desktop\AIEComplexProject\trunk\bin\GameAnalytics.lib'
+﻿  main.cpp
+  Application2D.cpp
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  GameClient.vcxproj -> C:\Users\s171541\Desktop\AIEComplexProject\trunk\\bin\GameClient_DEBUG.exe

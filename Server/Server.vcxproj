@@ -302,7 +302,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AccountInfo.cpp" />
+    <ClCompile Include="AccountManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ServerProcessor.cpp" />
+    <ClCompile Include="StringHelper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AccountInfo.h" />
+    <ClInclude Include="AccountManager.h" />
+    <ClInclude Include="ServerProcessor.h" />
+    <ClInclude Include="StringHelper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

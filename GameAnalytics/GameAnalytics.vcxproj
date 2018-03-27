@@ -298,12 +298,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="testObject.cpp" />
+    <ClInclude Include="dllimport.h" />
+    <ClInclude Include="GameAnalytics.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dllimport.h" />
-    <ClInclude Include="testObject.h" />
+    <ClCompile Include="GameAnalytics.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

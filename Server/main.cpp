@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 
+#include "ServerProcessor.h"
+#include "AccountManager.h"
+
 #include <SFML\Network.hpp>
 
 using namespace sf;
@@ -9,38 +12,19 @@ using namespace sf;
 
 int main()
 {
-	TcpListener listener;
 
-	if (listener.listen(5000) != Socket::Done)
-	{
-		//error
-	}
+	//initialises the account manager
+	AM;
 
-	while (true)
-	{
-		TcpSocket client;
+	AM->createAccount("elmo", "yes");
+	AM->createAccount("rick", "and morty i guess");
+	AM->removeAccount("elmo", "yes");
 
-		if (listener.accept(client) != Socket::Done)
-		{
-			//error
-			continue;
-		}
+	ServerProcessor* app = new ServerProcessor();
 
-		char msg[100];
-		size_t r = 0;
-
-		client.receive(msg, 100, r);
-
-		std::cout << msg;
-
-		break;
-	}
-
-	int a;
-
-	std::cin >> a;
-
-	std::cout << "Success";
+	app->run();
+	
+	AM->save();
 
 	return 0;
 }

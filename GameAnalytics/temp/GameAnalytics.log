@@ -1,5 +1,3 @@
-﻿  testObject.cpp
-  main.cpp
-  Generating Code...
-     Creating library C:\Users\s171541\Desktop\AIEComplexProject\trunk\\bin\GameAnalytics_DEBUG.lib and object C:\Users\s171541\Desktop\AIEComplexProject\trunk\\bin\GameAnalytics_DEBUG.exp
-  GameAnalytics.vcxproj -> C:\Users\s171541\Desktop\AIEComplexProject\trunk\\bin\GameAnalytics_DEBUG.dll
+﻿  GameAnalytics.cpp
+     Creating library C:\Users\Brad\Desktop\AIEComplexSystem\trunk\\bin\GameAnalytics_DEBUG.lib and object C:\Users\Brad\Desktop\AIEComplexSystem\trunk\\bin\GameAnalytics_DEBUG.exp
+  GameAnalytics.vcxproj -> C:\Users\Brad\Desktop\AIEComplexSystem\trunk\\bin\GameAnalytics_DEBUG.dll

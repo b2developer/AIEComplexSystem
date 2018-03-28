@@ -10,6 +10,7 @@ using namespace sf;
 
 //port to bind the server to
 const int COMMUNICATION_PORT = 5000;
+const int COMMUNICATION_SIZE = 256;
 
 /*
 * class ServerProcessor
@@ -57,7 +58,8 @@ public:
 	* and responds appropriately
 	*
 	* @param string data - the command to decypher and respond to
+	* @param int i - the index of the socket that sent the request
 	* @returns void
 	*/
-	void processRequest(string data);
+	void processRequest(string data, int i);
 };

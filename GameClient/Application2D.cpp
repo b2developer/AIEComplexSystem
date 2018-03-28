@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
+#include "GameAnalytics.h"
 
 Application2D::Application2D() 
 {
@@ -15,6 +16,7 @@ Application2D::~Application2D()
 
 bool Application2D::startup() 
 {
+	GA->connect();
 	
 	m_2dRenderer = new aie::Renderer2D();
 

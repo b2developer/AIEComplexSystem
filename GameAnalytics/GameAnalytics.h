@@ -1,7 +1,20 @@
 #pragma once
+
 #include "dllimport.h"
 
+using namespace std;
+
 #define GA GameAnalytics::getInstance()
+
+//port to connect to
+const int COMMUNICATION_PORT = 5000;
+const int COMMUNICATION_SIZE = 256;
+
+//forward declaration
+namespace sf
+{
+	class TcpSocket;
+} // namespace sf
 
 /*
 * class GameAnalytics
@@ -30,6 +43,8 @@ private:
 
 public:
 
+	sf::TcpSocket* client = nullptr;
+
 	/*
 	* getInstance
 	*
@@ -39,4 +54,13 @@ public:
 	* @returns static GameAnalytics* - pointer to the singleton
 	*/
 	DLL_EXP static GameAnalytics* getInstance();
+
+	/*
+	* connect
+	*
+	* attempts to connect the client socket to the server
+	*
+	* @returns bool - result of the attempted connection
+	*/
+	DLL_EXP bool connect();
 };

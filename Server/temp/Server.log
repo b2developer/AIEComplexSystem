@@ -1,2 +1,7 @@
-﻿  ServerProcessor.cpp
-  Server.vcxproj -> C:\Users\Brad\Desktop\AIEComplexSystem\trunk\\bin\Server_DEBUG.exe
+﻿  StringHelper.cpp
+  ServerProcessor.cpp
+  main.cpp
+  AccountManager.cpp
+  AccountInfo.cpp
+  Generating Code...
+  Server.vcxproj -> C:\Users\s171541\Desktop\AIEComplexProject\trunk\\bin\Server_DEBUG.exe

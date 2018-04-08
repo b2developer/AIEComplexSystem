@@ -35,7 +35,6 @@ void ServerProcessor::run()
 		//check if there is a new client joining
 		if (listener.accept(*s) == Socket::Done)
 		{
-			s->setBlocking(false);
 			sockets.push_back(s);
 			loggedAccounts.push_back(nullptr);
 
@@ -79,11 +78,48 @@ void ServerProcessor::processRequest(string data, int i)
 
 	if (info == nullptr)
 	{
-		//login commands are only processed if the user hasn't logged in
-		if (command == "@login")
+		//sanitise the input
+		if (parts.size() == 3)
 		{
+			//check that the account exists
+			AccountInfo* search = AM->searchAccount(parts[1], parts[2]);
+			
+			if (search == nullptr)
+			{
+				if (command == "@login") //login and the account wasn't found = FAILURE
+				{
+					string packet = "@failure";
+					socket->send(packet.c_str(), packet.size());
+				}
+				else if (command == "@create") //creation and the account wasn't found = SUCCESS
+				{
+					string packet = "@success";
+					socket->send(packet.c_str(), packet.size());
 
+					//create the account and retrieve it
+					AM->createAccount(parts[1], parts[2]);
+					AccountInfo* n = AM->searchAccount(parts[1], parts[2]);
+
+					info = n;
+				}
+			}
+			else
+			{
+				if (command == "@login") //login and the account was found = SUCCESS
+				{
+					info = search;
+
+					string packet = "@success";
+					socket->send(packet.c_str(), packet.size());
+				}
+				else if (command == "@create") //creation and the account wasn't found = FAILURE
+				{
+					string packet = "@failure";
+					socket->send(packet.c_str(), packet.size());
+				}
+			}
 		}
+		
 	}
 	else
 	{

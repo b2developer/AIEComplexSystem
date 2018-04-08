@@ -1,4 +1,5 @@
 ﻿  GameAnalytics.cpp
   DLL
-     Creating library C:\Users\s171541\Desktop\AIEComplexProject\trunk\\bin\GameAnalytics_DEBUG.lib and object C:\Users\s171541\Desktop\AIEComplexProject\trunk\\bin\GameAnalytics_DEBUG.exp
-  GameAnalytics.vcxproj -> C:\Users\s171541\Desktop\AIEComplexProject\trunk\\bin\GameAnalytics_DEBUG.dll
+c:\users\brad\desktop\aiecomplexsystem\trunk\gameanalytics\gameanalytics.cpp(116): warning C4244: 'argument': conversion from 'float' to 'char', possible loss of data
+     Creating library C:\Users\Brad\Desktop\AIEComplexSystem\trunk\\bin\GameAnalytics_DEBUG.lib and object C:\Users\Brad\Desktop\AIEComplexSystem\trunk\\bin\GameAnalytics_DEBUG.exp
+  GameAnalytics.vcxproj -> C:\Users\Brad\Desktop\AIEComplexSystem\trunk\\bin\GameAnalytics_DEBUG.dll

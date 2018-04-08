@@ -104,4 +104,15 @@ public:
 	* @returns EDeletionResponse - event return indicating the outcome of the attemtped deletion
 	*/
 	EDeletionResponse removeAccount(string name, string pass);
+
+	/*
+	* searchAccount
+	*
+	* searches for an account and returns the result
+	*
+	* @param string name - the name of the account
+	* @param string pass - the password of the account
+	* @returns AccountInfo* - account info object, can be nullptr, indicating a failed search
+	*/
+	AccountInfo* searchAccount(string name, string pass);
 };

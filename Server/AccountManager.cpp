@@ -104,7 +104,7 @@ ECreationResponse AccountManager::createAccount(string name, string pass)
 		AccountInfo* test = accounts[i];
 
 		//duplicate name test
-		if (test->name == name)
+		if (test->name == name && test->pass == pass)
 		{
 			return ECreationResponse::NAME_MATCH;
 		}
@@ -146,4 +146,28 @@ EDeletionResponse AccountManager::removeAccount(string name, string pass)
 
 	//there was no account with the specific name
 	return EDeletionResponse::NO_NAME;
+}
+
+//searches for an existing account
+AccountInfo* AccountManager::searchAccount(string name, string pass)
+{
+	size_t size = accounts.size();
+
+	//search through all accounts to find one that matches the desired specifications
+	for (size_t i = 0; i < size; i++)
+	{
+		AccountInfo* test = accounts[i];
+
+		//name and password match test
+		if (test->name == name)
+		{
+			if (test->pass == pass)
+			{
+				return test;
+			}
+		}
+	}
+
+	//there was no account with the specific name
+	return nullptr;
 }

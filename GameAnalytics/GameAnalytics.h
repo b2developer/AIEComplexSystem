@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 #include "dllimport.h"
 
@@ -15,6 +16,15 @@ namespace sf
 {
 	class TcpSocket;
 } // namespace sf
+
+//used to deduct variable types during updates
+enum class EVariableType
+{
+	INT,
+	FLOAT,
+	STRING,
+	BOOL,
+};
 
 /*
 * class GameAnalytics
@@ -63,4 +73,16 @@ public:
 	* @returns bool - result of the attempted connection
 	*/
 	DLL_EXP bool connect();
+
+	/*
+	* updateData
+	*
+	* attempts to send a data update to the server
+	*
+	* @param string name - name of the data to update
+	* @param void* data - pointer to the data to send
+	* @param EVariableType dataType - the type of data that is being sent
+	* @returns void
+	*/
+	DLL_EXP void updateData(string name, void* data, EVariableType dataType);
 };

@@ -17,7 +17,11 @@ Application2D::~Application2D()
 bool Application2D::startup() 
 {
 	GA->connect();
-	
+		
+	int a = 5;
+
+	GA->updateData("interger", &a, EVariableType::INT);
+
 	m_2dRenderer = new aie::Renderer2D();
 
 	m_font = new aie::Font("./font/consolas.ttf", 32);

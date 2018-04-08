@@ -1,1 +1,4 @@
+brad,1234
+photo,booth
+robot,beepboooop
 rick,and morty i guess

@@ -1,4 +1,2 @@
-brad,1234
-photo,booth
-robot,beepboooop
+brad,1234,num2,@i1234,num3,@i2345,str,@saasdasd
 rick,and morty i guess

@@ -59,6 +59,7 @@ void ServerProcessor::run()
 			//attempt to recieve data from the client
 			if (socket->receive(packet, COMMUNICATION_SIZE, rev_s) == Socket::Done)
 			{
+				packet[rev_s] = '\0';
 				processRequest(packet, i);
 			}
 		}
@@ -68,6 +69,7 @@ void ServerProcessor::run()
 //processes the string as a request
 void ServerProcessor::processRequest(string data, int i)
 {
+
 	//grab the socket and account that sent the request
 	TcpSocket* socket = sockets[i];
 	AccountInfo* info = loggedAccounts[i];
@@ -83,7 +85,7 @@ void ServerProcessor::processRequest(string data, int i)
 		{
 			//check that the account exists
 			AccountInfo* search = AM->searchAccount(parts[1], parts[2]);
-			
+
 			if (search == nullptr)
 			{
 				if (command == "@login") //login and the account wasn't found = FAILURE
@@ -100,14 +102,14 @@ void ServerProcessor::processRequest(string data, int i)
 					AM->createAccount(parts[1], parts[2]);
 					AccountInfo* n = AM->searchAccount(parts[1], parts[2]);
 
-					info = n;
+					loggedAccounts[i] = n;
 				}
 			}
 			else
 			{
 				if (command == "@login") //login and the account was found = SUCCESS
 				{
-					info = search;
+					loggedAccounts[i] = search;
 
 					string packet = "@success";
 					socket->send(packet.c_str(), packet.size());
@@ -119,10 +121,63 @@ void ServerProcessor::processRequest(string data, int i)
 				}
 			}
 		}
-		
 	}
 	else
 	{
+		//sanitise the input
+		if (parts.size() == 3)
+		{
+			if (command == "@overwrite")
+			{
+				string dataName = parts[1];
+				string type = parts[2].substr(0, 2);
+				string data = parts[2].substr(2, parts[2].size() - 2);
 
+				stringstream ss = stringstream(data);
+
+				if (type == "@i")
+				{
+					int i;
+					ss >> i;
+
+					info->overwriteData(dataName, EDataType::INT, &i);
+				}
+				else if (type == "@f")
+				{
+					float f;
+					ss >> f;
+
+					info->overwriteData(dataName, EDataType::FLOAT, &f);
+				}
+				else if (type == "@s")
+				{
+					info->overwriteData(dataName, EDataType::STRING, &data);
+				}
+			}
+			else if (command == "@offset")
+			{
+				string dataName = parts[1];
+				string type = parts[2].substr(0, 2);
+				string data = parts[2].substr(2, parts[2].size() - 2);
+
+				stringstream ss = stringstream(data);
+
+				if (type == "@i")
+				{
+					int i;
+					ss >> i;
+
+					info->offsetData(dataName, EDataType::INT, &i);
+				}
+				else if (type == "@f")
+				{
+					float f;
+					ss >> f;
+
+					info->offsetData(dataName, EDataType::FLOAT, &f);
+				}
+				//strings can't be relatively updated
+			}
+		}
 	}
 }

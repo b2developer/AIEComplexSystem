@@ -1,7 +1,11 @@
 #pragma once
 #include <string>
+#include <vector>
 
 using namespace std;
+
+//forward declaration
+class GameObject;
 
 /*
 * class GameState
@@ -13,12 +17,14 @@ using namespace std;
 */
 class GameState
 {
+public:
+
 	string name;
 
 	//name of the gamestate that called this
 	string origin;
 
-public:
+	vector<GameObject*> gameObjects;
 
 	/*
 	* GameState()

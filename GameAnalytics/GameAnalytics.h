@@ -26,6 +26,13 @@ enum class EVariableType
 	BOOL,
 };
 
+union Variable
+{
+	int i;
+	float f;
+	bool b;
+};
+
 /*
 * class GameAnalytics
 *
@@ -80,9 +87,9 @@ public:
 	* attempts to send a data update to the server
 	*
 	* @param string name - name of the data to update
-	* @param void* data - pointer to the data to send
+	* @param Variable data - pointer to the data to send
 	* @param EVariableType dataType - the type of data that is being sent
 	* @returns void
 	*/
-	DLL_EXP void updateData(string name, void* data, EVariableType dataType);
+	DLL_EXP void updateData(string name, Variable data, EVariableType dataType);
 };

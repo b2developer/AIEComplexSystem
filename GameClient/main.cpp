@@ -2,7 +2,7 @@
 
 int main() 
 {
-	
+
 	// allocation
 	auto app = new Application2D();
 

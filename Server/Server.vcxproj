@@ -311,7 +311,11 @@
   <ItemGroup>
     <ClInclude Include="AccountInfo.h" />
     <ClInclude Include="AccountManager.h" />
+    <ClInclude Include="Data.h" />
+    <ClInclude Include="FloatData.h" />
+    <ClInclude Include="IntData.h" />
     <ClInclude Include="ServerProcessor.h" />
+    <ClInclude Include="StringData.h" />
     <ClInclude Include="StringHelper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

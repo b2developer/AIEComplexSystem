@@ -12,14 +12,14 @@ using namespace glm;
 *
 * @author: Bradley Booth, Academy of Interactive Entertainment, 2018
 */
-class Transform : Component
+class Transform : public Component
 {
 public:
 
 	//transform variables
 	vec2 position = vec2(0,0);
 	float rotation = 0.0f; //radians
-	vec2 scale = vec2(0,0);
+	vec2 scale = vec2(1,1);
 
 	/*
 	* Transform()

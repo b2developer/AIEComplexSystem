@@ -171,3 +171,16 @@ AccountInfo* AccountManager::searchAccount(string name, string pass)
 	//there was no account with the specific name
 	return nullptr;
 }
+
+//updates an item to the existing account
+void AccountManager::updateItem(AccountInfo * info, string dataName, EDataType type, EUpdate updateType, void * data)
+{
+	if (updateType == EUpdate::OVERWRITE)
+	{
+		info->overwriteData(dataName, type, data);
+	}
+	else if (updateType == EUpdate::OFFSET)
+	{
+		info->offsetData(dataName, type, data);
+	}
+}

@@ -12,7 +12,6 @@ using namespace sf;
 
 int main()
 {
-
 	//initialises the account manager
 	AM;
 

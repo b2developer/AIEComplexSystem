@@ -1,11 +1,13 @@
 c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\vc141.pdb
 c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\vc141.idb
-c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\main.obj
+c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\textrenderer.obj
+c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\renderer.obj
+c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\gamestate.obj
+c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\gameobject.obj
+c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\component.obj
+c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\chef.obj
 c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\application2d.obj
-c:\users\brad\desktop\aiecomplexsystem\trunk\bin\gameclient.ipdb
-c:\users\brad\desktop\aiecomplexsystem\trunk\bin\gameclient.iobj
-c:\users\brad\desktop\aiecomplexsystem\trunk\bin\gameclient.exe
-c:\users\brad\desktop\aiecomplexsystem\trunk\bin\gameclient.pdb
+c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\main.obj
 c:\users\brad\desktop\aiecomplexsystem\trunk\bin\gameclient_debug.ilk
 c:\users\brad\desktop\aiecomplexsystem\trunk\bin\gameclient_debug.exe
 c:\users\brad\desktop\aiecomplexsystem\trunk\bin\gameclient_debug.pdb
@@ -15,7 +17,6 @@ c:\users\brad\desktop\aiecomplexsystem\trunk\\bin\gameclient_debug.ilk
 c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\gameclient.tlog\cl.command.1.tlog
 c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\gameclient.tlog\cl.read.1.tlog
 c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\gameclient.tlog\cl.write.1.tlog
-c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\gameclient.tlog\gameclient.write.1u.tlog
 c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\gameclient.tlog\link.command.1.tlog
 c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\gameclient.tlog\link.read.1.tlog
 c:\users\brad\desktop\aiecomplexsystem\trunk\gameclient\temp\gameclient.tlog\link.write.1.tlog

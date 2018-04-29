@@ -1,6 +1,7 @@
 #include "GameAnalytics.h"
 
 #include <iostream>
+#include <sstream>
 #include <SFML/Network.hpp>
 
 
@@ -76,8 +77,9 @@ bool GameAnalytics::connect()
 		//wait for the response
 		if (client->receive(rev_packet, (size_t)COMMUNICATION_SIZE, rev_s) == sf::Socket::Done)
 		{
+			rev_packet[rev_s] = '\0';
 			std::string rev_packet_s = std::string(rev_packet);
-
+		
 			//examine the response
 			if (rev_packet_s == "@success")
 			{
@@ -99,34 +101,38 @@ bool GameAnalytics::connect()
 }
 
 //attempts to send a data update to the server
-void GameAnalytics::updateData(string name, void * data, EVariableType dataType)
+void GameAnalytics::updateData(string name, Variable data, EVariableType dataType)
 {
-	string packet = name;
+	string packet = "@offset," + name + ",";
+
+	stringstream ss = stringstream();
 
 	if (dataType == EVariableType::INT)
 	{
-		int d = *((int*)data);
-		packet += ",";
-		packet += d;
+		int d = data.i;
+
+		ss << d;
+		string s;
+		ss >> s;
+
+		packet += "@i";
+		packet += s;
 	}
 	else if (dataType == EVariableType::FLOAT)
 	{
-		float d = *((float*)data);
-		packet += ",";
-		packet += d;
-	}
-	else if (dataType == EVariableType::BOOL)
-	{
-		bool d = *((bool*)data);;
-		packet += ",";
-		packet += d;
+		float d = data.f;
+
+		ss << d;
+		string s;
+		ss >> s;
+
+		packet += "@i";
+		packet += s;
 	}
 	else if (dataType == EVariableType::STRING)
 	{
-		string d = *((string*)data);
-		packet += ",";
-		packet += d;
+
 	}
 
-	packet += ",";
+	client->send(packet.c_str(), packet.size() + 1);
 }

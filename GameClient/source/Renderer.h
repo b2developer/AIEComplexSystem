@@ -6,15 +6,18 @@
 using namespace glm;
 using namespace aie;
 
+//forward declaration
+class Application2D;
+
 /*
 * class Renderer
 * child class of Component
 *
-* a component that records a position, rotation and relative scale
+* a component that renders a texture to a specific position
 *
 * @author: Bradley Booth, Academy of Interactive Entertainment, 2018
 */
-class Renderer : Component
+class Renderer : public Component
 {
 public:
 
@@ -24,11 +27,16 @@ public:
 	//size of the rendered texture
 	vec2 dimensions = vec2(0, 0);
 
+	//object that renders the texture
+	Application2D* app2D = nullptr;
+
 	/*
 	* Renderer()
-	* default constructor
+	* constructor, gives the renderer component the 2D graphical renderer
+	*
+	* @param Application2D* _app2D - the 2D graphical renderer
 	*/
-	Renderer() {}
+	Renderer(Application2D* _app2D);
 
 	/*
 	* ~Renderer()

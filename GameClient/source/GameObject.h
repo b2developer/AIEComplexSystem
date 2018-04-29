@@ -1,5 +1,8 @@
 #pragma once
 #include <vector>
+#include "Transform.h"
+
+#define TEMPLATE template<typename T>
 
 using namespace std;
 
@@ -52,4 +55,34 @@ public:
 	*/
 	void render();
 
+	/*
+	* getComponentOfType
+	* template function
+	*
+	* searches for a component of a specific type 
+	* that is being held by this gameobject
+	*
+	* @returns T* - pointer to the found type or nullptr if no matching object is found
+	*/
+	TEMPLATE
+	T * getComponentOfType()
+	{
+		size_t compSize = comps.size();
+
+		//render all components
+		for (size_t i = 0; i < compSize; i++)
+		{
+			T* test = dynamic_cast<T*>(comps[i]);
+
+			//type match test
+			if (test != nullptr)
+			{
+				return test;
+			}
+		}
+
+		return nullptr;
+	}
+
 };
+

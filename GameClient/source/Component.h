@@ -1,5 +1,9 @@
 #pragma once
 
+//forward declaration
+class Transform;
+class GameObject;
+
 /*
 * class Component
 *
@@ -10,7 +14,13 @@
 */
 class Component
 {
-protected:
+public:
+
+	//gameobject that owns this component
+	GameObject * holder = nullptr;
+
+	//transform component of the gameObject
+	Transform* transform = nullptr;
 
 	/*
 	* Component()
@@ -25,6 +35,16 @@ protected:
 	*/
 	virtual ~Component() {}
 
+	/*
+	* initialise
+	*
+	* runs once when the object is created
+	*
+	* @param GameObject* - pointer to the gameObject holding this component
+	* @returns void
+	*/
+	void initialise(GameObject* gameObject);
+	
 	/*
 	* update
 	* abstract function

@@ -5,6 +5,8 @@
 #include "TextRenderer.h"
 #include "Application2D.h"
 
+#include "ResourceLibrary.h"
+
 //generation function
 GameObject * Chef::cook(Recipe recipe)
 {
@@ -16,7 +18,7 @@ GameObject * Chef::cook(Recipe recipe)
 		g->comps.push_back((Component*)t);
 
 		Renderer* r = new Renderer(app2D);
-		r->texture = app2D->m_testTexture;
+		r->texture = RL->m_testTexture;
 		r->dimensions = vec2(100, 100);
 
 		g->comps.push_back((Component*)r);

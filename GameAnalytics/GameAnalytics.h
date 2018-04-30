@@ -18,19 +18,26 @@ namespace sf
 } // namespace sf
 
 //used to deduct variable types during updates
-enum class EVariableType
+enum class EDataType
 {
 	INT,
 	FLOAT,
 	STRING,
-	BOOL,
+	HEATMAP,
 };
 
-union Variable
+enum class EUpdate
 {
-	int i;
-	float f;
-	bool b;
+	OVERWRITE,
+	OFFSET,
+};
+
+//data type used to update a heat-map
+struct HeatMapUpdate
+{
+	int x;
+	int y;
+	int** v;
 };
 
 /*
@@ -87,9 +94,10 @@ public:
 	* attempts to send a data update to the server
 	*
 	* @param string name - name of the data to update
-	* @param Variable data - pointer to the data to send
-	* @param EVariableType dataType - the type of data that is being sent
+	* @param void* data - pointer to the data to send
+	* @param EDataType dataType - the type of data that is being sent
+	* @param EUpdateType updateType - the type of update that is being sent
 	* @returns void
 	*/
-	DLL_EXP void updateData(string name, Variable data, EVariableType dataType);
+	DLL_EXP void updateData(string name, void* data, EDataType dataType, EUpdate updateType);
 };

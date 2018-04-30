@@ -336,6 +336,7 @@
     <ClCompile Include="source\GameObject.cpp" />
     <ClCompile Include="source\GameState.cpp" />
     <ClCompile Include="source\Renderer.cpp" />
+    <ClCompile Include="source\ResourceLibrary.cpp" />
     <ClCompile Include="source\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -345,6 +346,7 @@
     <ClInclude Include="source\GameObject.h" />
     <ClInclude Include="source\GameState.h" />
     <ClInclude Include="source\Renderer.h" />
+    <ClInclude Include="source\ResourceLibrary.h" />
     <ClInclude Include="source\TextRenderer.h" />
     <ClInclude Include="source\Transform.h" />
   </ItemGroup>

@@ -59,5 +59,8 @@
     <ClInclude Include="StringData.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
+    <ClInclude Include="Heatmap.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

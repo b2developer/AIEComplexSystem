@@ -12,7 +12,9 @@ Renderer::Renderer(Application2D * _app2D)
 void Renderer::render()
 {
 	vec2 screen = vec2(app2D->getWindowWidth(), app2D->getWindowHeight());
-	screen /= 50.0f;
+	screen /= 100.0f;
 
-	app2D->m_2dRenderer->drawSprite(texture, transform->position.x * screen.x, transform->position.y * screen.y, (dimensions.x * transform->scale.x) * screen.x, (dimensions.y * transform->scale.y) * screen.y, transform->rotation);
+	vec2 size = vec2((dimensions.x * transform->scale.x) * screen.x, (dimensions.y * transform->scale.y) * screen.y);
+
+	app2D->m_2dRenderer->drawSprite(texture, transform->position.x * screen.x + size.x * 0.5f, transform->position.y * screen.y + size.y * 0.5f, size.x , size.y, transform->rotation);
 }

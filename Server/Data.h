@@ -9,6 +9,7 @@ enum class EDataType
 	INT,
 	FLOAT,
 	STRING,
+	HEATMAP,
 };
 
 enum class EUpdate
@@ -16,7 +17,6 @@ enum class EUpdate
 	OVERWRITE,
 	OFFSET,
 };
-
 
 /*
 * class BaseData

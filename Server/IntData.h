@@ -37,13 +37,7 @@ public:
 	*/
 	string toString() override
 	{
-		string s;
-		stringstream ss = stringstream(s);
-		ss << data;
-
-		ss >> s;
-
-		string serial = name + "," + "@i" + s;
+		string serial = name + ",@i" + to_string(data);
 
 		return serial;
 	}

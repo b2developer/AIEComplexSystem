@@ -35,7 +35,13 @@ AccountManager::AccountManager()
 //destructor, saves account objects using file i/o
 AccountManager::~AccountManager()
 {
-	
+	size_t accSize = accounts.size();
+
+	//delete all of the accounts
+	for (size_t i = 0; i < accSize; i++)
+	{
+		delete accounts[i];
+	}
 }
 
 //gets the root folder that the .exe is located inside

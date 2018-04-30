@@ -71,23 +71,11 @@ public:
 	*/
 	virtual void draw();
 
-	/*
-	* getExecutableFolder
-	*
-	* gets the path of the /bin folder
-	*
-	* @returns void
-	*/
-	void getExecutableFolder();
-
-	char executablePath[MAX_PATH];
-
 	GameState* state;
 
 	aie::Renderer2D*	m_2dRenderer;
 
-	aie::Font*			m_font;
-	aie::Texture*		m_testTexture;
+	int** b;
 
 protected:
 

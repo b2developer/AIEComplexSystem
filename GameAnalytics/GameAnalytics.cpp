@@ -101,37 +101,77 @@ bool GameAnalytics::connect()
 }
 
 //attempts to send a data update to the server
-void GameAnalytics::updateData(string name, Variable data, EVariableType dataType)
+void GameAnalytics::updateData(string name, void* data, EDataType dataType, EUpdate updateType)
 {
-	string packet = "@offset," + name + ",";
+	string packet;
 
-	stringstream ss = stringstream();
-
-	if (dataType == EVariableType::INT)
+	if (updateType == EUpdate::OVERWRITE)
 	{
-		int d = data.i;
+		packet = "@overwrite," + name + ",";
+	}
+	else if (updateType == EUpdate::OFFSET)
+	{
+		packet = "@offset," + name + ",";
+	}
 
-		ss << d;
-		string s;
-		ss >> s;
+	if (dataType == EDataType::INT)
+	{
+		int d = *(int*)data;
+
+		string s = to_string(d);
 
 		packet += "@i";
 		packet += s;
 	}
-	else if (dataType == EVariableType::FLOAT)
+	else if (dataType == EDataType::FLOAT)
 	{
-		float d = data.f;
+		float d = *(float*)data;
 
-		ss << d;
-		string s;
-		ss >> s;
+		string s = to_string(d);
 
 		packet += "@i";
 		packet += s;
 	}
-	else if (dataType == EVariableType::STRING)
+	else if (dataType == EDataType::STRING)
 	{
+		//strings can't be offset
+		if (updateType == EUpdate::OFFSET)
+		{
+			return;
+		}
 
+		string s = *(string*)data;
+
+		packet += "@s";
+		packet += s;
+	}
+	else if (dataType == EDataType::HEATMAP)
+	{
+		packet += "@h";
+
+		HeatMapUpdate h = *(HeatMapUpdate*)data;
+
+		string s = to_string(h.x);
+
+		packet += s;
+		packet += ".";
+
+		s = to_string(h.y);
+
+		packet += s;
+
+		s = "";
+
+		//serialise the 2D array with '.' as the delimiter
+		for (int i = 0; i < h.y; i++)
+		{
+			for (int j = 0; j < h.x; j++)
+			{
+				packet += ".";
+				s = to_string(h.v[i][j]);;
+				packet += s;
+			}
+		}
 	}
 
 	client->send(packet.c_str(), packet.size() + 1);

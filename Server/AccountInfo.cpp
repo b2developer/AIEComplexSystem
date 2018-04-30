@@ -4,6 +4,7 @@
 #include "IntData.h"
 #include "FloatData.h"
 #include "StringData.h"
+#include "Heatmap.h"
 
 //constructor
 AccountInfo::AccountInfo()
@@ -14,7 +15,13 @@ AccountInfo::AccountInfo()
 //destructor
 AccountInfo::~AccountInfo()
 {
+	size_t points = datapoints.size();
 
+	//serialise each data point
+	for (size_t i = 0; i < points; i++)
+	{
+		delete datapoints[i];
+	}
 }
 
 //object to string
@@ -65,22 +72,48 @@ void AccountInfo::deserialise(string data)
 
 		BaseData* bd = nullptr;
 
-		stringstream ss = stringstream(d);
-
 		if (c == "@i")
 		{
 			bd = new IntData();
-			ss >> ((IntData*)bd)->data;
+			((IntData*)bd)->data = atoi(d.c_str());
 		}
 		else if (c == "@f")
 		{
 			bd = new FloatData();
-			ss >> ((FloatData*)bd)->data;
+			((FloatData*)bd)->data = atof(d.c_str());
 		}
 		else if (c == "@s")
 		{
 			bd = new StringData();
 			((StringData*)bd)->data = d;
+		}
+		else if (c == "@h")
+		{
+			bd = new HeatMap();
+
+			HeatMapData* h = new HeatMapData();
+
+			vector<string> dataParts = split(d, '.');
+
+			h->x = atoi(dataParts[0].c_str());
+
+			h->y = atoi(dataParts[1].c_str());
+
+			//create the columns
+			h->v = new int*[h->y];
+
+			for (int i = 0; i < h->y; i++)
+			{
+				//create the rows
+				h->v[i] = new int[h->x];
+
+				for (int j = 0; j < h->x; j++)
+				{
+					h->v[i][j] = atoi(dataParts[2 + i * h->x + j].c_str());
+				}
+			}
+
+			((HeatMap*)bd)->data = h;
 		}
 
 		bd->name = n;
@@ -109,10 +142,34 @@ void AccountInfo::overwriteData(string name, EDataType type, void * newData)
 		}
 	}
 
-	//name mismatch, return
+	//name mismatch, create a variable for the new data
 	if (bd == nullptr)
 	{
-		return;
+		BaseData* n = nullptr;
+
+		//determine the type
+		if (type == EDataType::INT)
+		{
+			n = new IntData();	
+		}
+		else if (type == EDataType::FLOAT)
+		{
+			n = new FloatData();
+		}
+		else if (type == EDataType::STRING)
+		{
+			n = new StringData();
+		}
+		else if (type == EDataType::HEATMAP)
+		{
+			n = new HeatMap();
+		}
+
+		n->name = name;
+
+		datapoints.push_back(n);
+
+		bd = n;
 	}
 
 	//determine the type
@@ -130,6 +187,11 @@ void AccountInfo::overwriteData(string name, EDataType type, void * newData)
 	{
 		string* s = (string*)newData;
 		((StringData*)bd)->data = *s;
+	}
+	else if (type == EDataType::HEATMAP)
+	{
+		HeatMapData* h = (HeatMapData*)newData;
+		((HeatMap*)bd)->data = h;
 	}
 }
 
@@ -169,5 +231,10 @@ void AccountInfo::offsetData(string name, EDataType type, void * newData)
 	{
 		float* f = (float*)newData;
 		((FloatData*)bd)->data += *f;
+	}
+	else if (type == EDataType::HEATMAP)
+	{
+		HeatMapData* h = (HeatMapData*)newData;
+		*((HeatMap*)bd)->data += *h;
 	}
 }

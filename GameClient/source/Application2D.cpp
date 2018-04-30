@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
+#include "ResourceLibrary.h"
 #include "GameAnalytics.h"
 #include "Chef.h"
 
@@ -20,28 +21,43 @@ Application2D::~Application2D()
 //runs when the application is started, returns true if the application can begin the main loop
 bool Application2D::startup() 
 {
-	GA->connect();
-		
-	Variable data = Variable();
-	data.i = 5;
+	//initialise the resource library
+	RL;
 
-	GA->updateData("num2", data, EVariableType::INT);
+	if (!GA->connect())
+	{
+		return false;
+	}
+		
+	int a = 5;
+
+	GA->updateData("num2", &a, EDataType::INT, EUpdate::OFFSET);
+	GA->updateData("new", &a, EDataType::INT, EUpdate::OVERWRITE);
+
+	b = new int*[4];
+
+	for (int i = 0; i < 4; i++)
+	{
+		b[i] = new int[6];
+
+		for (int j = 0; j < 6; j++)
+		{
+			b[i][j] = i * 6 + j;
+		}
+	}
+
+	static HeatMapUpdate hmu = HeatMapUpdate();
+
+	hmu.x = 6;
+	hmu.y = 4;
+	hmu.v = b;
+
+	for (int i = 0; i < 1; i++)
+	{
+		GA->updateData("heat", &hmu, EDataType::HEATMAP, EUpdate::OVERWRITE);
+	}
 
 	m_2dRenderer = new aie::Renderer2D();
-
-	getExecutableFolder();
-
-	string rootPath = executablePath;
-
-	string addition = rootPath;
-	addition += "/font/consolas.ttf";
-	
-	m_font = new aie::Font(addition.c_str(), 32);
-	
-	addition = rootPath;
-	addition += "/textures/default.png";
-
-	m_testTexture = new aie::Texture(addition.c_str());
 
 	m_cameraX = 0;
 	m_cameraY = 0;
@@ -65,8 +81,6 @@ bool Application2D::startup()
 void Application2D::shutdown() 
 {
 	delete state;
-
-	delete m_font;
 	delete m_2dRenderer;
 }
 
@@ -97,13 +111,4 @@ void Application2D::draw()
 	m_2dRenderer->end();
 }
 
-void Application2D::getExecutableFolder()
-{
-	GetModuleFileName(NULL, executablePath, MAX_PATH);
 
-	char *pos;
-	if (pos = strrchr(executablePath, '\\'))
-	{
-		*pos = 0;
-	}
-}

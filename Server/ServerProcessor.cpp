@@ -3,6 +3,7 @@
 #include <iostream>
 #include "StringHelper.h"
 #include "AccountManager.h"
+#include "Heatmap.h"
 
 using namespace std;
 
@@ -133,19 +134,15 @@ void ServerProcessor::processRequest(string data, int i)
 				string type = parts[2].substr(0, 2);
 				string data = parts[2].substr(2, parts[2].size() - 2);
 
-				stringstream ss = stringstream(data);
-
 				if (type == "@i")
 				{
-					int i;
-					ss >> i;
+					int i = atoi(data.c_str());
 
 					info->overwriteData(dataName, EDataType::INT, &i);
 				}
 				else if (type == "@f")
 				{
-					float f;
-					ss >> f;
+					float f = atof(data.c_str());
 
 					info->overwriteData(dataName, EDataType::FLOAT, &f);
 				}
@@ -153,6 +150,34 @@ void ServerProcessor::processRequest(string data, int i)
 				{
 					info->overwriteData(dataName, EDataType::STRING, &data);
 				}
+				else if (type == "@h")
+				{
+					HeatMapData h = HeatMapData();
+
+					vector<string> dataParts = split(data, '.');
+
+					h.x = atoi(dataParts[0].c_str());
+
+					h.y = atoi(dataParts[1].c_str());
+
+					//create the columns
+					h.v = new int*[h.y];
+
+					for (int i = 0; i < h.y; i++)
+					{
+						//create the rows
+						h.v[i] = new int[h.x];
+
+						for (int j = 0; j < h.x; j++)
+						{
+							h.v[i][j] = atoi(dataParts[2 + i * h.x + j].c_str());
+						}
+					}
+
+					info->overwriteData(dataName, EDataType::HEATMAP, &h);
+				}
+
+				AM->save();
 			}
 			else if (command == "@offset")
 			{
@@ -160,23 +185,50 @@ void ServerProcessor::processRequest(string data, int i)
 				string type = parts[2].substr(0, 2);
 				string data = parts[2].substr(2, parts[2].size() - 2);
 
-				stringstream ss = stringstream(data);
-
 				if (type == "@i")
 				{
-					int i;
-					ss >> i;
+					int i = atoi(data.c_str());
 
 					info->offsetData(dataName, EDataType::INT, &i);
 				}
 				else if (type == "@f")
 				{
-					float f;
-					ss >> f;
+					float f = atof(data.c_str());
 
 					info->offsetData(dataName, EDataType::FLOAT, &f);
 				}
-				//strings can't be relatively updated
+				else if (type == "@s")
+				{
+					//can't update strings this way
+				}
+				else if (type == "@h")
+				{
+					HeatMapData h = HeatMapData();
+
+					vector<string> dataParts = split(data, '.');
+
+					h.x = atoi(dataParts[0].c_str());
+
+					h.y = atoi(dataParts[1].c_str());
+
+					//create the columns
+					h.v = new int*[h.y];
+
+					for (int i = 0; i < h.y; i++)
+					{
+						//create the rows
+						h.v[i] = new int[h.x];
+
+						for (int j = 0; j < h.x; j++)
+						{
+							h.v[i][j] = atoi(dataParts[2 + i * h.x + j].c_str());
+						}
+					}
+
+					info->offsetData(dataName, EDataType::HEATMAP, &h);
+				}
+
+				AM->save();
 			}
 		}
 	}

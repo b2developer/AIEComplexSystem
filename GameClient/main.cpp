@@ -1,4 +1,5 @@
 #include "Application2D.h"
+#include "GameAnalytics.h"
 
 int main() 
 {
@@ -6,8 +7,12 @@ int main()
 	// allocation
 	auto app = new Application2D();
 
-	// initialise and loop
-	app->run("GameClient", 1280, 720, false);
+	//the game only runs if the game analytics system can connect
+	if (GA->connect())
+	{
+		// initialise and loop
+		app->run("GameClient", 1280, 720, false);
+	}
 
 	// deallocation
 	delete app;

@@ -80,7 +80,7 @@ void AccountInfo::deserialise(string data)
 		else if (c == "@f")
 		{
 			bd = new FloatData();
-			((FloatData*)bd)->data = atof(d.c_str());
+			((FloatData*)bd)->data = (float)atof(d.c_str());
 		}
 		else if (c == "@s")
 		{

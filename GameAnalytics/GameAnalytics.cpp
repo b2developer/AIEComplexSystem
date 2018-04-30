@@ -40,10 +40,18 @@ bool GameAnalytics::connect()
 	client = new sf::TcpSocket();
 	client->setBlocking(true);
 
-	//return the result of the connection attempt
-	if (client->connect(local, COMMUNICATION_PORT) != sf::Socket::Done)
+	while (true)
 	{
-		return false;
+		std::cout << "Connecting to Server...\n";
+
+		//return the result of the connection attempt
+		if (client->connect(local, COMMUNICATION_PORT) == sf::Socket::Done)
+		{
+			std::cout << "Connection successful.\n";
+			break;
+		}
+
+		std::cout << "Connection failed. Trying again..\n";
 	}
 
 	//infinite loop to login until successful
@@ -66,7 +74,7 @@ bool GameAnalytics::connect()
 		std::cout << "Password: ";
 		std::cin >> password;
 
-		std::cout << "Connecting...";
+		std::cout << "Logging in...";
 
 		string packet = "@" + mode + "," + username + ',' + password;
 		client->send(packet.c_str(), packet.size());
@@ -87,15 +95,15 @@ bool GameAnalytics::connect()
 			}
 			else if (rev_packet_s == "@failure")
 			{
-				std::cout << "Connection rejected.\n";
+				std::cout << "Login failed (bad password/account).\n";
 				continue;
 			}
 		}
 
-		std::cout << "Connection failed.\n";
+		std::cout << "Login failed.\n";
 	}
 
-	std::cout << "Connected.\n";
+	std::cout << "Login successful.\n";
 
 	return true;
 }

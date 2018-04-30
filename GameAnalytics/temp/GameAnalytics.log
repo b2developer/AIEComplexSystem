@@ -1,3 +1,4 @@
 ﻿  GameAnalytics.cpp
-  Static
-  GameAnalytics.vcxproj -> C:\Users\s171541\Desktop\AIEComplexProject\trunk\\libs\GameAnalytics_DEBUG.lib
+  DLL
+     Creating library C:\Users\Brad\Desktop\AIEComplexSystem\trunk\\bin\GameAnalytics_DEBUG.lib and object C:\Users\Brad\Desktop\AIEComplexSystem\trunk\\bin\GameAnalytics_DEBUG.exp
+  GameAnalytics.vcxproj -> C:\Users\Brad\Desktop\AIEComplexSystem\trunk\\bin\GameAnalytics_DEBUG.dll

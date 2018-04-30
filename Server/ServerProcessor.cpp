@@ -39,7 +39,7 @@ void ServerProcessor::run()
 			sockets.push_back(s);
 			loggedAccounts.push_back(nullptr);
 
-			cout << "client connected.\n";
+			cout << "Client connected.\n";
 			
 		}
 		else
@@ -142,7 +142,7 @@ void ServerProcessor::processRequest(string data, int i)
 				}
 				else if (type == "@f")
 				{
-					float f = atof(data.c_str());
+					float f = (float)atof(data.c_str());
 
 					info->overwriteData(dataName, EDataType::FLOAT, &f);
 				}
@@ -193,7 +193,7 @@ void ServerProcessor::processRequest(string data, int i)
 				}
 				else if (type == "@f")
 				{
-					float f = atof(data.c_str());
+					float f = (float)atof(data.c_str());
 
 					info->offsetData(dataName, EDataType::FLOAT, &f);
 				}

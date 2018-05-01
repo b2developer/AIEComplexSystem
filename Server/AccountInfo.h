@@ -62,12 +62,10 @@ public:
 	*
 	* replaces the datapoint with the given type and name with the new data
 	*
-	* @param string name - the name of the datapoint
-	* @param EDataType type - the variable type of the data
-	* @param void* newData - void pointer to the new value
+	* @param BaseData* bd - the data to replace
 	* @returns void
 	*/
-	void overwriteData(string name, EDataType type, void* newData);
+	void overwriteData(BaseData* bd);
 
 	/*
 	* offsetData
@@ -75,10 +73,8 @@ public:
 	* updates the datapoint with a relative value
 	* (fails on strings)
 	*
-	* @param string name - the name of the datapoint
-	* @param EDataType type - the variable type of the data
-	* @param void* newData - void pointer to the offset value
+	* @param BaseData* bd - the data to replace
 	* @returns void
 	*/
-	void offsetData(string name, EDataType type, void* newData);
+	void offsetData(BaseData* bd);
 };

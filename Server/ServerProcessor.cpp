@@ -1,9 +1,9 @@
 #include "ServerProcessor.h"
 
 #include <iostream>
+#include "DataConverter.h"
 #include "StringHelper.h"
 #include "AccountManager.h"
-#include "Heatmap.h"
 
 using namespace std;
 
@@ -39,7 +39,7 @@ void ServerProcessor::run()
 			sockets.push_back(s);
 			loggedAccounts.push_back(nullptr);
 
-			cout << "Client connected.\n";
+			cout << "client connected.\n";
 			
 		}
 		else
@@ -130,103 +130,21 @@ void ServerProcessor::processRequest(string data, int i)
 		{
 			if (command == "@overwrite")
 			{
-				string dataName = parts[1];
-				string type = parts[2].substr(0, 2);
-				string data = parts[2].substr(2, parts[2].size() - 2);
+				string data = parts[1] + "," + parts[2];
+				
+				BaseData* bd = DC->deserialise(data);
 
-				if (type == "@i")
-				{
-					int i = atoi(data.c_str());
-
-					info->overwriteData(dataName, EDataType::INT, &i);
-				}
-				else if (type == "@f")
-				{
-					float f = (float)atof(data.c_str());
-
-					info->overwriteData(dataName, EDataType::FLOAT, &f);
-				}
-				else if (type == "@s")
-				{
-					info->overwriteData(dataName, EDataType::STRING, &data);
-				}
-				else if (type == "@h")
-				{
-					HeatMapData h = HeatMapData();
-
-					vector<string> dataParts = split(data, '.');
-
-					h.x = atoi(dataParts[0].c_str());
-
-					h.y = atoi(dataParts[1].c_str());
-
-					//create the columns
-					h.v = new int*[h.y];
-
-					for (int i = 0; i < h.y; i++)
-					{
-						//create the rows
-						h.v[i] = new int[h.x];
-
-						for (int j = 0; j < h.x; j++)
-						{
-							h.v[i][j] = atoi(dataParts[2 + i * h.x + j].c_str());
-						}
-					}
-
-					info->overwriteData(dataName, EDataType::HEATMAP, &h);
-				}
+				info->overwriteData(bd);
 
 				AM->save();
 			}
 			else if (command == "@offset")
 			{
-				string dataName = parts[1];
-				string type = parts[2].substr(0, 2);
-				string data = parts[2].substr(2, parts[2].size() - 2);
+				string data = parts[1] + "," + parts[2];
 
-				if (type == "@i")
-				{
-					int i = atoi(data.c_str());
+				BaseData* bd = DC->deserialise(data);
 
-					info->offsetData(dataName, EDataType::INT, &i);
-				}
-				else if (type == "@f")
-				{
-					float f = (float)atof(data.c_str());
-
-					info->offsetData(dataName, EDataType::FLOAT, &f);
-				}
-				else if (type == "@s")
-				{
-					//can't update strings this way
-				}
-				else if (type == "@h")
-				{
-					HeatMapData h = HeatMapData();
-
-					vector<string> dataParts = split(data, '.');
-
-					h.x = atoi(dataParts[0].c_str());
-
-					h.y = atoi(dataParts[1].c_str());
-
-					//create the columns
-					h.v = new int*[h.y];
-
-					for (int i = 0; i < h.y; i++)
-					{
-						//create the rows
-						h.v[i] = new int[h.x];
-
-						for (int j = 0; j < h.x; j++)
-						{
-							h.v[i][j] = atoi(dataParts[2 + i * h.x + j].c_str());
-						}
-					}
-
-					info->offsetData(dataName, EDataType::HEATMAP, &h);
-				}
+				info->overwriteData(bd);
 
 				AM->save();
 			}

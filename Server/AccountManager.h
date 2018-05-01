@@ -114,18 +114,4 @@ public:
 	* @returns AccountInfo* - account info object, can be nullptr, indicating a failed search
 	*/
 	AccountInfo* searchAccount(string name, string pass);
-
-	/*
-	* updateItem
-	*
-	* updates an item belonging to a specific account
-	*
-	* @param AccountInfo* - pointer to the account to update
-	* @param string dataName - name of the data
-	* @param EDataType type - the type of data to update
-	* @param EUpdate updateType - the type of update to apply to the data (offset or overwrite)
-	* @param void* data - void pointer to the data to update
-	* @returns void
-	*/
-	void updateItem(AccountInfo* info, string dataName, EDataType type, EUpdate updateType, void* data);
 };

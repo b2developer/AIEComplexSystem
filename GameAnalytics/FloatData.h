@@ -35,13 +35,8 @@ public:
 	*
 	* @returns string - string representation of the data
 	*/
-	DLL_EXP string toString() override
-	{
-		string serial = name + ",@f" + to_string(data);
-
-		return serial;
-	}
-
+	DLL_EXP string toString() override;
+	
 	/*
 	* canDeserialise
 	* overrides BaseData's canDeserialise(string data)
@@ -51,24 +46,7 @@ public:
 	* @param string data - the serialised data object
 	* @returns bool - result of the check
 	*/
-	DLL_EXP bool canDeserialise(string data) override
-	{
-		vector<string> parts = split(data, ',');
-
-		//check that the data is long enough
-		if (parts[1].length() >= 3)
-		{
-			string sub = parts[1].substr(0, 2);
-
-			//check the data tag
-			if (sub == "@f")
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
+	DLL_EXP bool canDeserialise(string data) override;
 
 	/*
 	* deserialise
@@ -79,18 +57,7 @@ public:
 	* @param string data - the serialised data object
 	* @returns BaseData* - deserialised vesion of the string
 	*/
-	DLL_EXP BaseData* deserialise(string data) override
-	{
-		vector<string> parts = split(data, ',');
-
-		string sub = parts[1].substr(2, parts[1].length() - 2);
-
-		FloatData* f = new FloatData();
-		f->name = parts[0];
-		f->data = (float)atof(sub.c_str());
-
-		return f;
-	}
+	DLL_EXP BaseData* deserialise(string data) override;
 
 	/*
 	* wrap
@@ -101,19 +68,5 @@ public:
 	* @param void* data - pointer to the data
 	* @returns BaseData* - pointer to the wrapped data
 	*/
-	DLL_EXP BaseData* wrap(void* data) override
-	{
-		float* con = (float*)data;
-
-		//check that the cast worked
-		if (con != nullptr)
-		{
-			FloatData* d = new FloatData();
-			d->data = *con;
-
-			return d;
-		}
-
-		return nullptr;
-	}
+	DLL_EXP BaseData* wrap(void* data) override;
 };

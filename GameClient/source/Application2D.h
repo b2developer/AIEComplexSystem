@@ -75,8 +75,6 @@ public:
 
 	aie::Renderer2D*	m_2dRenderer;
 
-	bool successfulStart = false;
-
 	int** b;
 
 protected:

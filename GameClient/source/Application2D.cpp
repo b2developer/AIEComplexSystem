@@ -23,6 +23,11 @@ bool Application2D::startup()
 {
 	//initialise the resource library
 	RL;
+
+	if (!GA->connect())
+	{
+		return false;
+	}
 		
 	int a = 5;
 
@@ -61,19 +66,12 @@ bool Application2D::startup()
 	state->name = "main";
 	state->gameObjects.push_back(g);
 
-	successfulStart = true;
-
 	return true;
 }
 
 //runs when the application is closed
 void Application2D::shutdown() 
 {
-	if (!successfulStart)
-	{
-		return;
-	}
-
 	delete state;
 	delete m_2dRenderer;
 }

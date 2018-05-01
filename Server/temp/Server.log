@@ -1,10 +1,10 @@
-﻿  StringHelper.cpp
-  ServerProcessor.cpp
-c:\users\s171541\desktop\aiecomplexproject\trunk\server\serverprocessor.cpp(145): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\s171541\desktop\aiecomplexproject\trunk\server\serverprocessor.cpp(196): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+﻿  ServerProcessor.cpp
+  Static
   main.cpp
+  Static
   AccountManager.cpp
+  Static
   AccountInfo.cpp
-c:\users\s171541\desktop\aiecomplexproject\trunk\server\accountinfo.cpp(83): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Static
   Generating Code...
   Server.vcxproj -> C:\Users\s171541\Desktop\AIEComplexProject\trunk\\bin\Server_DEBUG.exe

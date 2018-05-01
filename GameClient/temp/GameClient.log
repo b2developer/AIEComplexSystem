@@ -1,14 +1,13 @@
-﻿  main.cpp
-  Static
+﻿  TextRenderer.cpp
+  ResourceLibrary.cpp
+  Renderer.cpp
+  GameState.cpp
+  GameObject.cpp
+  Component.cpp
+  Chef.cpp
   Application2D.cpp
   Static
-  Chef.cpp
-  Component.cpp
-  GameObject.cpp
-  GameState.cpp
-  Renderer.cpp
-  ResourceLibrary.cpp
-  TextRenderer.cpp
+  main.cpp
   Generating Code...
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  GameClient.vcxproj -> C:\Users\Brad\Desktop\AIEComplexSystem\trunk\\bin\GameClient_DEBUG.exe
+  GameClient.vcxproj -> C:\Users\s171541\Desktop\AIEComplexProject\trunk\\bin\GameClient_DEBUG.exe

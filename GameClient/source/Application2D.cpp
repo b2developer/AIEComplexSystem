@@ -6,6 +6,10 @@
 #include "GameAnalytics.h"
 #include "Chef.h"
 
+#include "IntData.h"
+#include "FloatData.h"
+#include "StringData.h"
+
 //constructor
 Application2D::Application2D() 
 {
@@ -29,13 +33,11 @@ bool Application2D::startup()
 		return false;
 	}
 		
-	int a = 5;
+	IntData i = IntData();
+	i.name = "asd";
+	i.data = 5;
 
-	GA->updateData("num5", &a, EUpdate::OFFSET);
-	GA->updateData("num4", &a, EUpdate::OFFSET);
-	GA->updateData("num3", &a, EUpdate::OFFSET);
-	GA->updateData("num2", &a, EUpdate::OFFSET);
-	GA->updateData("new", &a, EUpdate::OVERWRITE);
+	GA->updateData(&i, EUpdate::OVERWRITE);
 
 	b = new int*[4];
 

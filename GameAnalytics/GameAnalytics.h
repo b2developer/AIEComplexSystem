@@ -72,10 +72,9 @@ public:
 	*
 	* attempts to send a data update to the server
 	*
-	* @param string name - name of the data to update
-	* @param void* data - pointer to the data to send
+	* @param BaseData* data - pointer to the data to send
 	* @param EUpdateType updateType - the type of update that is being sent
 	* @returns void
 	*/
-	DLL_EXP void updateData(string name, void* data, EUpdate updateType);
+	DLL_EXP void updateData(BaseData* data, EUpdate updateType);
 };

@@ -55,15 +55,4 @@ public:
 	* @returns BaseData* - pointer to the deserialised form
 	*/
 	DLL_EXP BaseData* deserialise(string data);
-
-	/*
-	* wrap
-	*
-	* takes a pointer to data and wraps it in the 
-	* corresponding base data object
-	*
-	* @param void* data - pointer to the data
-	* @returns BaseData* - pointer to the wrapped data object
-	*/
-	DLL_EXP BaseData* wrap(void* data);
 };

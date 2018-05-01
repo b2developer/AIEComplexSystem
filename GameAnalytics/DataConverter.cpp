@@ -57,24 +57,3 @@ BaseData * DataConverter::deserialise(string data)
 
 	return nullptr;
 }
-
-//convert data to an object
-DLL_EXP BaseData * DataConverter::wrap(void * data)
-{
-	size_t conSize = convertors.size();
-
-	//test all convertors
-	for (size_t i = 0; i < conSize; i++)
-	{
-		BaseData* conv = convertors[i];
-		BaseData* attempt = conv->wrap(data);
-
-		//check if the cast worked
-		if (attempt != nullptr)
-		{
-			return attempt;
-		}
-	}
-
-	return nullptr;
-}

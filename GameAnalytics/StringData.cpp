@@ -3,10 +3,7 @@
 //convert to string
 string StringData::toString()
 {
-	string s;
-	s += data;
-
-	string serial = name + "," + "@s" + s;
+	string serial = name + "," + "@s" + data;
 
 	return serial;
 }
@@ -43,21 +40,4 @@ BaseData * StringData::deserialise(string data)
 	i->data = sub;
 
 	return i;
-}
-
-//wraps data in a BaseData object
-BaseData * StringData::wrap(void * data)
-{
-	string* con = (string*)data;
-
-	//check that the cast worked
-	if (con != nullptr)
-	{
-		StringData* d = new StringData();
-		d->data = *con;
-
-		return d;
-	}
-
-	return nullptr;
 }

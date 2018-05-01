@@ -3,9 +3,9 @@
 #include <sstream>
 #include "StringHelper.h"
 
-using namespace std;
-
 #include "dllimport.h"
+
+using namespace std;
 
 enum class EDataType
 {
@@ -78,15 +78,4 @@ public:
 	* @returns BaseData* - deserialised vesion of the string
 	*/
 	DLL_EXP virtual BaseData* deserialise(string data) = 0;
-
-	/*
-	* wrap
-	* abstract function
-	*
-	* takes a piece of data and attempts to create a BaseData object out of it
-	*
-	* @param void* data - pointer to the data
-	* @returns BaseData* - pointer to the wrapped data
-	*/
-	DLL_EXP virtual BaseData* wrap(void* data) = 0;
 };

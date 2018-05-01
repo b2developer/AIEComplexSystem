@@ -1,2 +1,2 @@
-brad,1234,num5,@i5,num4,@i5
-brad2,asdf,new,@i5
+brad,1234
+brad2,asdf

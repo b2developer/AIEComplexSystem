@@ -17,7 +17,7 @@ ServerProcessor::ServerProcessor()
 		throw "Failed to bind communications.";
 	}
 
-	listener.setBlocking(false);
+	listener.setBlocking(true);
 }
 
 //destructor, ends the server
@@ -37,6 +37,8 @@ void ServerProcessor::run()
 		if (listener.accept(*s) == Socket::Done)
 		{
 			sockets.push_back(s);
+			s->setBlocking(false);
+
 			loggedAccounts.push_back(nullptr);
 
 			cout << "client connected.\n";
@@ -54,13 +56,22 @@ void ServerProcessor::run()
 		{
 			TcpSocket* socket = sockets[i];
 
-			char packet[COMMUNICATION_SIZE];
-			size_t rev_s = 0;
+			sf::Packet rv;
 
 			//attempt to recieve data from the client
-			if (socket->receive(packet, COMMUNICATION_SIZE, rev_s) == Socket::Done)
+			while (socket->receive(rv) != Socket::Done) 
 			{
-				packet[rev_s] = '\0';
+				//cancel the loop if the first iteration doesn't get any data
+				if (rv.getDataSize() == 0)
+				{
+					break;
+				}
+			}
+
+			//check if data was recieved
+			if (rv.getDataSize() > 0)
+			{
+				string packet = (char*)rv.getData();
 				processRequest(packet, i);
 			}
 		}

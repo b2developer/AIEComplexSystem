@@ -42,20 +42,3 @@ BaseData * FloatData::deserialise(string data)
 	return f;
 }
 
-//wraps data in a BaseData object
-BaseData * FloatData::wrap(void * data)
-{
-	float* con = (float*)data;
-
-	//check that the cast worked
-	if (con != nullptr)
-	{
-		FloatData* d = new FloatData();
-		d->data = *con;
-
-		return d;
-	}
-
-	return nullptr;
-}
-

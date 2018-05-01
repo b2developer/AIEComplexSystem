@@ -329,7 +329,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataConverter.cpp" />
+    <ClCompile Include="FloatData.cpp" />
     <ClCompile Include="GameAnalytics.cpp" />
+    <ClCompile Include="IntData.cpp" />
+    <ClCompile Include="StringData.cpp" />
     <ClCompile Include="StringHelper.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

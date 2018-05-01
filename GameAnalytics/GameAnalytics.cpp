@@ -106,36 +106,32 @@ bool GameAnalytics::connect()
 
 	std::cout << "Login successful.\n";
 
+	//should be false
+	client->setBlocking(true);
+
 	return true;
 }
 
 //attempts to send a data update to the server
-void GameAnalytics::updateData(string name, void* data, EUpdate updateType)
+void GameAnalytics::updateData(BaseData* data, EUpdate updateType)
 {
-	BaseData* bd = DC->wrap(data);
 
-	//unsupported type
-	if (bd == nullptr)
-	{
-		return;
-	}
-
-	string packet;
-
-	bd->name = name;
+	string packetData;
 
 	if (updateType == EUpdate::OVERWRITE)
 	{
-		packet = "@overwrite,";
+		packetData = "@overwrite,";
 	}
 	else if (updateType == EUpdate::OFFSET)
 	{
-		packet = "@offset,";
+		packetData = "@offset,";
 	}
 
-	packet += bd->toString();
+	packetData += data->toString();
 
-	delete bd;
+	//loop and send
+	sf::Packet packet = sf::Packet();
+	packet.append(packetData.c_str(), packetData.length());
 
-	client->send(packet.c_str(), packet.size() + 1);
+	while (client->send(packet) != sf::Socket::Done) {}
 }

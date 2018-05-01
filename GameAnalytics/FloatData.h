@@ -58,15 +58,4 @@ public:
 	* @returns BaseData* - deserialised vesion of the string
 	*/
 	DLL_EXP BaseData* deserialise(string data) override;
-
-	/*
-	* wrap
-	* overrides BaseData's wrap(void* data)
-	*
-	* takes a piece of data and attempts to create a BaseData object out of it
-	*
-	* @param void* data - pointer to the data
-	* @returns BaseData* - pointer to the wrapped data
-	*/
-	DLL_EXP BaseData* wrap(void* data) override;
 };

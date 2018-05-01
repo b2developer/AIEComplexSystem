@@ -41,20 +41,3 @@ BaseData* IntData::deserialise(string data)
 
 	return i;
 }
-
-//wraps data in a BaseData object
-BaseData* IntData:: wrap(void* data)
-{
-	int* con = (int*)data;
-
-	//check that the cast worked
-	if (con != nullptr)
-	{
-		IntData* d = new IntData();
-		d->data = *con;
-
-		return d;
-	}
-
-	return nullptr;
-}

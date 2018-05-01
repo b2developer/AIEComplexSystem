@@ -26,8 +26,11 @@ bool Application2D::startup()
 		
 	int a = 5;
 
-	GA->updateData("num2", &a, EDataType::INT, EUpdate::OFFSET);
-	GA->updateData("new", &a, EDataType::INT, EUpdate::OVERWRITE);
+	GA->updateData("num5", &a, EUpdate::OFFSET);
+	GA->updateData("num4", &a, EUpdate::OFFSET);
+	GA->updateData("num3", &a, EUpdate::OFFSET);
+	GA->updateData("num2", &a, EUpdate::OFFSET);
+	GA->updateData("new", &a, EUpdate::OVERWRITE);
 
 	b = new int*[4];
 
@@ -39,17 +42,6 @@ bool Application2D::startup()
 		{
 			b[i][j] = i * 6 + j;
 		}
-	}
-
-	static HeatMapUpdate hmu = HeatMapUpdate();
-
-	hmu.x = 6;
-	hmu.y = 4;
-	hmu.v = b;
-
-	for (int i = 0; i < 1; i++)
-	{
-		GA->updateData("heat", &hmu, EDataType::HEATMAP, EUpdate::OVERWRITE);
 	}
 
 	m_2dRenderer = new aie::Renderer2D();

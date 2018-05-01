@@ -4,6 +4,7 @@
 #include <sstream>
 #include <SFML/Network.hpp>
 
+#include "DataConverter.h"
 
 //constructor
 GameAnalytics::GameAnalytics()
@@ -109,78 +110,32 @@ bool GameAnalytics::connect()
 }
 
 //attempts to send a data update to the server
-void GameAnalytics::updateData(string name, void* data, EDataType dataType, EUpdate updateType)
+void GameAnalytics::updateData(string name, void* data, EUpdate updateType)
 {
+	BaseData* bd = DC->wrap(data);
+
+	//unsupported type
+	if (bd == nullptr)
+	{
+		return;
+	}
+
 	string packet;
+
+	bd->name = name;
 
 	if (updateType == EUpdate::OVERWRITE)
 	{
-		packet = "@overwrite," + name + ",";
+		packet = "@overwrite,";
 	}
 	else if (updateType == EUpdate::OFFSET)
 	{
-		packet = "@offset," + name + ",";
+		packet = "@offset,";
 	}
 
-	if (dataType == EDataType::INT)
-	{
-		int d = *(int*)data;
+	packet += bd->toString();
 
-		string s = to_string(d);
-
-		packet += "@i";
-		packet += s;
-	}
-	else if (dataType == EDataType::FLOAT)
-	{
-		float d = *(float*)data;
-
-		string s = to_string(d);
-
-		packet += "@i";
-		packet += s;
-	}
-	else if (dataType == EDataType::STRING)
-	{
-		//strings can't be offset
-		if (updateType == EUpdate::OFFSET)
-		{
-			return;
-		}
-
-		string s = *(string*)data;
-
-		packet += "@s";
-		packet += s;
-	}
-	else if (dataType == EDataType::HEATMAP)
-	{
-		packet += "@h";
-
-		HeatMapUpdate h = *(HeatMapUpdate*)data;
-
-		string s = to_string(h.x);
-
-		packet += s;
-		packet += ".";
-
-		s = to_string(h.y);
-
-		packet += s;
-
-		s = "";
-
-		//serialise the 2D array with '.' as the delimiter
-		for (int i = 0; i < h.y; i++)
-		{
-			for (int j = 0; j < h.x; j++)
-			{
-				packet += ".";
-				s = to_string(h.v[i][j]);;
-				packet += s;
-			}
-		}
-	}
+	delete bd;
 
 	client->send(packet.c_str(), packet.size() + 1);
 }

@@ -318,11 +318,19 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Data.h" />
+    <ClInclude Include="DataConverter.h" />
     <ClInclude Include="dllimport.h" />
+    <ClInclude Include="FloatData.h" />
     <ClInclude Include="GameAnalytics.h" />
+    <ClInclude Include="IntData.h" />
+    <ClInclude Include="StringData.h" />
+    <ClInclude Include="StringHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DataConverter.cpp" />
     <ClCompile Include="GameAnalytics.cpp" />
+    <ClCompile Include="StringHelper.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,6 +3,8 @@
 
 #include "dllimport.h"
 
+#include "Data.h"
+
 using namespace std;
 
 #define GA GameAnalytics::getInstance()
@@ -16,29 +18,6 @@ namespace sf
 {
 	class TcpSocket;
 } // namespace sf
-
-//used to deduct variable types during updates
-enum class EDataType
-{
-	INT,
-	FLOAT,
-	STRING,
-	HEATMAP,
-};
-
-enum class EUpdate
-{
-	OVERWRITE,
-	OFFSET,
-};
-
-//data type used to update a heat-map
-struct HeatMapUpdate
-{
-	int x;
-	int y;
-	int** v;
-};
 
 /*
 * class GameAnalytics
@@ -95,9 +74,8 @@ public:
 	*
 	* @param string name - name of the data to update
 	* @param void* data - pointer to the data to send
-	* @param EDataType dataType - the type of data that is being sent
 	* @param EUpdateType updateType - the type of update that is being sent
 	* @returns void
 	*/
-	DLL_EXP void updateData(string name, void* data, EDataType dataType, EUpdate updateType);
+	DLL_EXP void updateData(string name, void* data, EUpdate updateType);
 };

@@ -17,7 +17,7 @@ ServerProcessor::ServerProcessor()
 		throw "Failed to bind communications.";
 	}
 
-	listener.setBlocking(true);
+	listener.setBlocking(false);
 }
 
 //destructor, ends the server
@@ -58,20 +58,28 @@ void ServerProcessor::run()
 
 			sf::Packet rv;
 
-			//attempt to recieve data from the client
-			while (socket->receive(rv) != Socket::Done) 
-			{
-				//cancel the loop if the first iteration doesn't get any data
-				if (rv.getDataSize() == 0)
-				{
-					break;
-				}
-			}
+			Socket::Status s = socket->receive(rv);
 
-			//check if data was recieved
-			if (rv.getDataSize() > 0)
+			//nothing to recieve if this is false
+			if (s != Socket::NotReady)
 			{
+				size_t rs = rv.getDataSize();
 				string packet = (char*)rv.getData();
+				packet.resize(rs);
+
+				//attempt to recieve all of the data from the client
+				while (s != Socket::Done)
+				{
+					s = socket->receive(rv);
+
+					rs = rv.getDataSize();
+					string append = (char*)rv.getData();
+
+					append.resize(rs);
+
+					packet += append;
+				}
+
 				processRequest(packet, i);
 			}
 		}
@@ -102,13 +110,19 @@ void ServerProcessor::processRequest(string data, int i)
 			{
 				if (command == "@login") //login and the account wasn't found = FAILURE
 				{
-					string packet = "@failure";
-					socket->send(packet.c_str(), packet.size());
+					string packetStr = "@failure";
+					sf::Packet packet;
+					packet.append(packetStr.c_str(), packetStr.length());
+
+					while (socket->send(packet) != sf::Socket::Done) {}
 				}
 				else if (command == "@create") //creation and the account wasn't found = SUCCESS
 				{
-					string packet = "@success";
-					socket->send(packet.c_str(), packet.size());
+					string packetStr = "@success";
+					sf::Packet packet;
+					packet.append(packetStr.c_str(), packetStr.length());
+
+					while (socket->send(packet) != sf::Socket::Done) {}
 
 					//create the account and retrieve it
 					AM->createAccount(parts[1], parts[2]);
@@ -123,13 +137,19 @@ void ServerProcessor::processRequest(string data, int i)
 				{
 					loggedAccounts[i] = search;
 
-					string packet = "@success";
-					socket->send(packet.c_str(), packet.size());
+					string packetStr = "@success";
+					sf::Packet packet;
+					packet.append(packetStr.c_str(), packetStr.length());
+
+					while (socket->send(packet) != sf::Socket::Done) {}
 				}
 				else if (command == "@create") //creation and the account wasn't found = FAILURE
 				{
-					string packet = "@failure";
-					socket->send(packet.c_str(), packet.size());
+					string packetStr = "@failure";
+					sf::Packet packet;
+					packet.append(packetStr.c_str(), packetStr.length());
+
+					while (socket->send(packet) != sf::Socket::Done) {}
 				}
 			}
 		}

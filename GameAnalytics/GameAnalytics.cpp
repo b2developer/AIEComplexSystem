@@ -77,17 +77,21 @@ bool GameAnalytics::connect()
 
 		std::cout << "Logging in...";
 
-		string packet = "@" + mode + "," + username + ',' + password;
-		client->send(packet.c_str(), packet.size());
+		string packetStr = "@" + mode + "," + username + ',' + password;
+		sf::Packet packet = sf::Packet();
 
-		char rev_packet[COMMUNICATION_SIZE];
-		size_t rev_s;
+		packet.append(packetStr.c_str(), packetStr.length());
+
+		client->send(packet);
+
+		sf::Packet rv;
 
 		//wait for the response
-		if (client->receive(rev_packet, (size_t)COMMUNICATION_SIZE, rev_s) == sf::Socket::Done)
+		if (client->receive(rv) == sf::Socket::Done)
 		{
-			rev_packet[rev_s] = '\0';
-			std::string rev_packet_s = std::string(rev_packet);
+			size_t rvs = rv.getDataSize();
+			std::string rev_packet_s = (char*)rv.getData();
+			rev_packet_s.resize(rvs);
 		
 			//examine the response
 			if (rev_packet_s == "@success")
@@ -106,8 +110,7 @@ bool GameAnalytics::connect()
 
 	std::cout << "Login successful.\n";
 
-	//should be false
-	client->setBlocking(true);
+	client->setBlocking(false);
 
 	return true;
 }

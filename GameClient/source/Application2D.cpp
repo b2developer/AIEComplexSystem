@@ -39,6 +39,13 @@ bool Application2D::startup()
 
 	GA->updateData(&i, EUpdate::OVERWRITE);
 
+	string bigBoy = "asdfijhasdfhasdfhaslkdfhaledvbnabvrluebroiluvqewrnfewrgvesvgisdfngvsdigfnvhkdsfgnsdvgjsdnhglisdugnvsaflkgjaewnrinuherfh3e4qiwergsdnlosidauhvgdslgidsfvgbldignhvsdgohnadrkjgsdn.jfgvksjdvhliusdrgvksebhugloivesbrgvhuilewrg";
+	StringData s = StringData();
+	s.name = "bigboi";
+	s.data = bigBoy;
+
+	GA->updateData(&s, EUpdate::OVERWRITE);
+
 	b = new int*[4];
 
 	for (int i = 0; i < 4; i++)

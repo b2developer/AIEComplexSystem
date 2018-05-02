@@ -82,7 +82,7 @@ void AccountInfo::overwriteData(BaseData* bd)
 		BaseData* s = datapoints[i];
 
 		//name match
-		if (s->name == name)
+		if (s->name == bd->name)
 		{
 			delete s;
 			datapoints[i] = bd;
@@ -105,10 +105,10 @@ void AccountInfo::offsetData(BaseData* bd)
 		BaseData* s = datapoints[i];
 
 		//name match
-		if (s->name == name)
+		if (s->name == bd->name)
 		{
-			delete s;
-			datapoints[i] = bd;
+			datapoints[i]->add(bd);
+			delete bd;
 			break;
 		}
 	}

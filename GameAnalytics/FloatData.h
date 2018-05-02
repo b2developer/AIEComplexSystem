@@ -58,4 +58,15 @@ public:
 	* @returns BaseData* - deserialised vesion of the string
 	*/
 	DLL_EXP BaseData* deserialise(string data) override;
+
+	/*
+	* add
+	* overrides BaseData's add(BaseData& other)
+	*
+	* adds a data source to another
+	*
+	* @param BaseData* other - reference to the other data to add
+	* @returns void
+	*/
+	DLL_EXP virtual void add(BaseData* other) override;
 };

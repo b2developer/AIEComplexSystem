@@ -1,2 +1,1 @@
-brad,1234
-brad2,asdf
+brad,1234,num,@i5,word,@syes,time,@f2.192979

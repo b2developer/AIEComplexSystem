@@ -42,3 +42,10 @@ BaseData * FloatData::deserialise(string data)
 	return f;
 }
 
+//addition overload
+void FloatData::add(BaseData * other)
+{
+	FloatData* conv = (FloatData*)other;
+	data += conv->data;
+}
+

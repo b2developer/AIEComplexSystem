@@ -34,17 +34,22 @@ bool Application2D::startup()
 	}
 		
 	IntData i = IntData();
-	i.name = "asd";
+	i.name = "num";
 	i.data = 5;
 
 	GA->updateData(&i, EUpdate::OVERWRITE);
 
-	string bigBoy = "asdfijhasdfhasdfhaslkdfhaledvbnabvrluebroiluvqewrnfewrgvesvgisdfngvsdigfnvhkdsfgnsdvgjsdnhglisdugnvsaflkgjaewnrinuherfh3e4qiwergsdnlosidauhvgdslgidsfvgbldignhvsdgohnadrkjgsdn.jfgvksjdvhliusdrgvksebhugloivesbrgvhuilewrg";
 	StringData s = StringData();
-	s.name = "bigboi";
-	s.data = bigBoy;
+	s.name = "word";
+	s.data = "yes";
 
 	GA->updateData(&s, EUpdate::OVERWRITE);
+
+	FloatData f = FloatData();
+	f.name = "time";
+	f.data = 0.0f;
+
+	GA->updateData(&f, EUpdate::OVERWRITE);
 
 	b = new int*[4];
 
@@ -90,6 +95,12 @@ void Application2D::update(float deltaTime)
 {
 	//input example
 	aie::Input* input = aie::Input::getInstance();
+
+	FloatData f = FloatData();
+	f.name = "time";
+	f.data = deltaTime;
+
+	GA->updateData(&f, EUpdate::OFFSET);
 
 	state->update(deltaTime);
 }

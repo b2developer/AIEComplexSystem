@@ -78,4 +78,15 @@ public:
 	* @returns BaseData* - deserialised vesion of the string
 	*/
 	DLL_EXP virtual BaseData* deserialise(string data) = 0;
+
+	/*
+	* add
+	* abstract function
+	*
+	* adds a data source to another
+	*
+	* @param BaseData* other - pointer to the other data to add
+	* @returns void
+	*/
+	DLL_EXP virtual void add(BaseData* other) = 0;
 };

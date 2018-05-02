@@ -35,18 +35,30 @@ GameAnalytics* GameAnalytics::getInstance()
 //connection attempt
 bool GameAnalytics::connect()
 {
-	//get the local host
-	sf::IpAddress local = sf::IpAddress::getLocalAddress();
 
 	client = new sf::TcpSocket();
 	client->setBlocking(true);
 
 	while (true)
 	{
+		string ip;
+
+		std::cout << "Enter an IP Address: ";
+		std::cin >> ip;
+
+		//get the local host
+		sf::IpAddress destination = sf::IpAddress::getLocalAddress();
+
+		//the user entered a manual ip, use that instead
+		if (ip != "local")
+		{
+			destination = sf::IpAddress(ip.c_str());
+		}
+
 		std::cout << "Connecting to Server...\n";
 
 		//return the result of the connection attempt
-		if (client->connect(local, COMMUNICATION_PORT) == sf::Socket::Done)
+		if (client->connect(destination, COMMUNICATION_PORT) == sf::Socket::Done)
 		{
 			std::cout << "Connection successful.\n";
 			break;
@@ -118,7 +130,6 @@ bool GameAnalytics::connect()
 //attempts to send a data update to the server
 void GameAnalytics::updateData(BaseData* data, EUpdate updateType)
 {
-
 	string packetData;
 
 	if (updateType == EUpdate::OVERWRITE)
@@ -136,5 +147,11 @@ void GameAnalytics::updateData(BaseData* data, EUpdate updateType)
 	sf::Packet packet = sf::Packet();
 	packet.append(packetData.c_str(), packetData.length());
 
-	while (client->send(packet) != sf::Socket::Done) {}
+	
+	sf::Socket::Status status = client->send(packet);
+
+	while (status != sf::Socket::Done && status != sf::Socket::Disconnected) 
+	{
+		status = client->send(packet);
+	}
 }

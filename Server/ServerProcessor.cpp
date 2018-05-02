@@ -10,12 +10,16 @@ using namespace std;
 //constructor, starts the server
 ServerProcessor::ServerProcessor()
 {
+	cout << "Binding server to port " << COMMUNICATION_PORT << "...\n";
+
 	//bind the server
 	if (listener.listen(COMMUNICATION_PORT) != Socket::Done)
 	{
 		//failed to bind the server
-		throw "Failed to bind communications.";
+		throw;
 	}
+
+	cout << "Binding succeeded.\n";
 
 	listener.setBlocking(false);
 }
@@ -41,7 +45,7 @@ void ServerProcessor::run()
 
 			loggedAccounts.push_back(nullptr);
 
-			cout << "client connected.\n";
+			cout << "Client connected.\n";
 			
 		}
 		else
@@ -60,8 +64,8 @@ void ServerProcessor::run()
 
 			Socket::Status s = socket->receive(rv);
 
-			//nothing to recieve if this is false
-			if (s != Socket::NotReady)
+			//reception code
+			if (s == Socket::Partial || s == Socket::Done)
 			{
 				size_t rs = rv.getDataSize();
 				string packet = (char*)rv.getData();
@@ -81,6 +85,25 @@ void ServerProcessor::run()
 				}
 
 				processRequest(packet, i);
+			}
+			else if (s == Socket::Disconnected)
+			{
+				//remove the socket as it is disconnected
+				sockets.erase(sockets.begin() + i);
+
+				AccountInfo* account = loggedAccounts[i];
+
+				//close the account if it is open
+				if (account != nullptr)
+				{
+					std::cout << "Client: " << loggedAccounts[i]->name << " disconnected.\n";
+				}
+
+				loggedAccounts.erase(loggedAccounts.begin() + i);
+
+				i--;
+				size = sockets.size();
+				
 			}
 		}
 	}
@@ -114,7 +137,15 @@ void ServerProcessor::processRequest(string data, int i)
 					sf::Packet packet;
 					packet.append(packetStr.c_str(), packetStr.length());
 
-					while (socket->send(packet) != sf::Socket::Done) {}
+					sf::Socket::Status status = socket->send(packet);
+
+					//keep sending the packet until it is done or stop if the socket disconnects
+					while (status != sf::Socket::Done && status != sf::Socket::Disconnected)
+					{
+						status = socket->send(packet);
+					}
+
+					std::cout << "Failed login attempt: " << parts[1] << ", " << parts[2] << ".\n";
 				}
 				else if (command == "@create") //creation and the account wasn't found = SUCCESS
 				{
@@ -122,13 +153,21 @@ void ServerProcessor::processRequest(string data, int i)
 					sf::Packet packet;
 					packet.append(packetStr.c_str(), packetStr.length());
 
-					while (socket->send(packet) != sf::Socket::Done) {}
+					sf::Socket::Status status = socket->send(packet);
+
+					//keep sending the packet until it is done or stop if the socket disconnects
+					while (status != sf::Socket::Done && status != sf::Socket::Disconnected)
+					{
+						status = socket->send(packet);
+					}
 
 					//create the account and retrieve it
 					AM->createAccount(parts[1], parts[2]);
 					AccountInfo* n = AM->searchAccount(parts[1], parts[2]);
 
 					loggedAccounts[i] = n;
+
+					std::cout << "New account created: " << parts[1] << ", " << parts[2] << ".\n";
 				}
 			}
 			else
@@ -141,7 +180,15 @@ void ServerProcessor::processRequest(string data, int i)
 					sf::Packet packet;
 					packet.append(packetStr.c_str(), packetStr.length());
 
-					while (socket->send(packet) != sf::Socket::Done) {}
+					sf::Socket::Status status = socket->send(packet);
+
+					//keep sending the packet until it is done or stop if the socket disconnects
+					while (status != sf::Socket::Done && status != sf::Socket::Disconnected)
+					{
+						status = socket->send(packet);
+					}
+
+					std::cout << "Successful login attempt: " << parts[1] << ", " << parts[2] << ".\n";
 				}
 				else if (command == "@create") //creation and the account wasn't found = FAILURE
 				{
@@ -149,7 +196,15 @@ void ServerProcessor::processRequest(string data, int i)
 					sf::Packet packet;
 					packet.append(packetStr.c_str(), packetStr.length());
 
-					while (socket->send(packet) != sf::Socket::Done) {}
+					sf::Socket::Status status = socket->send(packet);
+
+					//keep sending the packet until it is done or stop if the socket disconnects
+					while (status != sf::Socket::Done && status != sf::Socket::Disconnected)
+					{
+						status = socket->send(packet);
+					}
+
+					std::cout << "Failed account creation: " << parts[1] << ", " << parts[2] << ".\n";
 				}
 			}
 		}
@@ -168,6 +223,8 @@ void ServerProcessor::processRequest(string data, int i)
 				info->overwriteData(bd);
 
 				AM->save();
+
+				std::cout << "Data overwitten: " << parts[1] << ": " << parts[2] << "\n";
 			}
 			else if (command == "@offset")
 			{
@@ -175,9 +232,11 @@ void ServerProcessor::processRequest(string data, int i)
 
 				BaseData* bd = DC->deserialise(data);
 
-				info->overwriteData(bd);
+				info->offsetData(bd);
 
 				AM->save();
+
+				std::cout << "Data offset: " << parts[1] << ": " << parts[2] << "\n";
 			}
 		}
 	}

@@ -41,3 +41,10 @@ BaseData* IntData::deserialise(string data)
 
 	return i;
 }
+
+//addition overload
+void IntData::add(BaseData * other)
+{
+	IntData* conv = (IntData*)other;
+	data += conv->data;
+}

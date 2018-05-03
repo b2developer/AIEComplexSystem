@@ -48,6 +48,8 @@ public:
 
 	sf::TcpSocket* client = nullptr;
 
+	bool connected = false;
+
 	/*
 	* getInstance
 	*

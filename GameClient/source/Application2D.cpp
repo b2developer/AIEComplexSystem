@@ -19,7 +19,8 @@ Application2D::Application2D()
 //destructor
 Application2D::~Application2D() 
 {
-
+	delete state;
+	delete m_2dRenderer;
 }
 
 //runs when the application is started, returns true if the application can begin the main loop
@@ -86,8 +87,7 @@ bool Application2D::startup()
 //runs when the application is closed
 void Application2D::shutdown() 
 {
-	delete state;
-	delete m_2dRenderer;
+	
 }
 
 //main update loop
@@ -103,6 +103,12 @@ void Application2D::update(float deltaTime)
 	GA->updateData(&f, EUpdate::OFFSET);
 
 	state->update(deltaTime);
+
+	//shutdown the app if connection is lost
+	if (!GA->connected)
+	{
+		quit();
+	}
 }
 
 //main render loop

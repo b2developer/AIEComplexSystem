@@ -124,6 +124,8 @@ bool GameAnalytics::connect()
 
 	client->setBlocking(false);
 
+	connected = true;
+
 	return true;
 }
 
@@ -153,5 +155,11 @@ void GameAnalytics::updateData(BaseData* data, EUpdate updateType)
 	while (status != sf::Socket::Done && status != sf::Socket::Disconnected) 
 	{
 		status = client->send(packet);
+	}
+
+	//the server has become disconnected
+	if (status == sf::Socket::Disconnected)
+	{
+		connected = false;
 	}
 }

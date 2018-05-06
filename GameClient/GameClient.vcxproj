@@ -341,6 +341,7 @@
     <ClCompile Include="source\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="source\Application2D.h" />
     <ClInclude Include="source\Button.h" />
     <ClInclude Include="source\Chef.h" />
@@ -351,6 +352,9 @@
     <ClInclude Include="source\ResourceLibrary.h" />
     <ClInclude Include="source\TextRenderer.h" />
     <ClInclude Include="source\Transform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameClient.rc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameAnalytics\GameAnalytics.vcxproj">

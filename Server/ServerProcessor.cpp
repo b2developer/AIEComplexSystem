@@ -52,7 +52,7 @@ ServerProcessor::ServerProcessor()
 			else if (parts[0] == "table")
 			{
 				//input sanitisation
-				if (parts.size() < 4)
+				if (parts.size() < 3)
 				{
 					cout << "Invalid Table Report.\n";
 					continue;
@@ -67,7 +67,7 @@ ServerProcessor::ServerProcessor()
 				}
 
 				TableReport t{};
-				t.initialise(columns, (bool)atoi(parts[partSize - 1].c_str()));
+				t.initialise(columns);
 				t.write(parts[1]);			
 
 				cout << "Table \"" + parts[1] + "\" created.\n";

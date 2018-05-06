@@ -25,3 +25,22 @@ vector<string> split(string data, char split)
 	
 	return substrs;
 }
+
+//finds the first instance of the requested character in the data string
+int find(string data, char key)
+{
+	size_t len = data.length();
+
+	//search the string's character for the key
+	for (size_t i = 0; i < len; i++)
+	{
+		//case match
+		if (data[i] == key)
+		{
+
+			return (int)i;
+		}
+	}
+
+	return -1;
+}

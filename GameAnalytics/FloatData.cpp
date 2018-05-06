@@ -1,9 +1,10 @@
 #include "FloatData.h"
+#include "Delimiter.h"
 
 //convert to string
 string FloatData::toString()
 {
-	string serial = name + ",@f" + to_string(data);
+	string serial = name + delimiter + "@f" + to_string(data);
 
 	return serial;
 }
@@ -11,7 +12,7 @@ string FloatData::toString()
 //test if the string can be deserialised
 bool FloatData::canDeserialise(string data)
 {
-	vector<string> parts = split(data, ',');
+	vector<string> parts = split(data, delimiter.c_str()[0]);
 
 	//check that the data is long enough
 	if (parts[1].length() >= 3)
@@ -31,7 +32,7 @@ bool FloatData::canDeserialise(string data)
 //create data out of it's string form
 BaseData * FloatData::deserialise(string data)
 {
-	vector<string> parts = split(data, ',');
+	vector<string> parts = split(data, delimiter.c_str()[0]);
 
 	string sub = parts[1].substr(2, parts[1].length() - 2);
 

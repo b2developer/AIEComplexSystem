@@ -15,9 +15,9 @@ int main()
 	//initialises the account manager
 	AM;
 
-	ServerProcessor* app = new ServerProcessor();
+	ServerProcessor* serverApp = new ServerProcessor();
 
-	app->run();
+	serverApp->run();
 	
 	AM->save();
 

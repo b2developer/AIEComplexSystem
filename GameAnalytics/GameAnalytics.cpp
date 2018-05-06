@@ -6,6 +6,8 @@
 
 #include "DataConverter.h"
 
+#include "Delimiter.h"
+
 //constructor
 GameAnalytics::GameAnalytics()
 {
@@ -35,7 +37,6 @@ GameAnalytics* GameAnalytics::getInstance()
 //connection attempt
 bool GameAnalytics::connect()
 {
-
 	client = new sf::TcpSocket();
 	client->setBlocking(true);
 
@@ -64,7 +65,7 @@ bool GameAnalytics::connect()
 			break;
 		}
 
-		std::cout << "Connection failed. Trying again..\n";
+		std::cout << "Connection failed.\n";
 	}
 
 	//infinite loop to login until successful
@@ -89,7 +90,7 @@ bool GameAnalytics::connect()
 
 		std::cout << "Logging in...";
 
-		string packetStr = "@" + mode + "," + username + ',' + password;
+		string packetStr = "@" + mode + delimiter + username + delimiter + password;
 		sf::Packet packet = sf::Packet();
 
 		packet.append(packetStr.c_str(), packetStr.length());
@@ -136,11 +137,11 @@ void GameAnalytics::updateData(BaseData* data, EUpdate updateType)
 
 	if (updateType == EUpdate::OVERWRITE)
 	{
-		packetData = "@overwrite,";
+		packetData = "@overwrite" + delimiter;
 	}
 	else if (updateType == EUpdate::OFFSET)
 	{
-		packetData = "@offset,";
+		packetData = "@offset" + delimiter;
 	}
 
 	packetData += data->toString();
@@ -149,7 +150,6 @@ void GameAnalytics::updateData(BaseData* data, EUpdate updateType)
 	sf::Packet packet = sf::Packet();
 	packet.append(packetData.c_str(), packetData.length());
 
-	
 	sf::Socket::Status status = client->send(packet);
 
 	while (status != sf::Socket::Done && status != sf::Socket::Disconnected) 

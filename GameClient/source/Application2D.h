@@ -75,8 +75,6 @@ public:
 
 	aie::Renderer2D*	m_2dRenderer;
 
-	int** b;
-
 protected:
 
 	float m_cameraX, m_cameraY;

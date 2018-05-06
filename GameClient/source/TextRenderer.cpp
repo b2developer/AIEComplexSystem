@@ -12,7 +12,7 @@ TextRenderer::TextRenderer(Application2D * _app2D)
 void TextRenderer::render()
 {
 	vec2 screen = vec2(app2D->getWindowWidth(), app2D->getWindowHeight());
-	screen /= 50.0f;
+	screen /= 100.0f;
 
 	app2D->m_2dRenderer->drawText(font, text.c_str(), transform->position.x * screen.x, transform->position.y * screen.y);
 }

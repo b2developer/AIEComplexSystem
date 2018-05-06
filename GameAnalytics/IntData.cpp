@@ -1,9 +1,10 @@
 #include "IntData.h"
+#include "Delimiter.h"
 
 //convert to string
 string IntData::toString()
 {
-	string serial = name + ",@i" + to_string(data);
+	string serial = name + delimiter + "@i" + to_string(data);
 
 	return serial;
 }
@@ -11,7 +12,7 @@ string IntData::toString()
 //test if the string can be deserialised
 bool IntData::canDeserialise(string data)
 {
-	vector<string> parts = split(data, ',');
+	vector<string> parts = split(data, delimiter.c_str()[0]);
 
 	//check that the data is long enough
 	if (parts[1].length() >= 3)
@@ -31,7 +32,7 @@ bool IntData::canDeserialise(string data)
 //create data out of it's string form
 BaseData* IntData::deserialise(string data)
 {
-	vector<string> parts = split(data, ',');
+	vector<string> parts = split(data, delimiter.c_str()[0]);
 
 	string sub = parts[1].substr(2, parts[1].length() - 2);
 

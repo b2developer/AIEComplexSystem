@@ -39,7 +39,8 @@ public:
 
 	//resources
 	aie::Font* m_font;
-	aie::Texture* m_testTexture;
+	aie::Texture* m_red;
+	aie::Texture* m_blue;
 
 	/*
 	* getInstance

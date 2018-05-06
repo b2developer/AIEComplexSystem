@@ -7,6 +7,7 @@ class Application2D;
 enum Recipe
 {
 	Test,
+	Button,
 };
 
 /*

@@ -7,14 +7,6 @@
 
 using namespace std;
 
-enum class EDataType
-{
-	INT,
-	FLOAT,
-	STRING,
-	HEATMAP,
-};
-
 enum class EUpdate
 {
 	OVERWRITE,
@@ -26,7 +18,7 @@ enum class EUpdate
 *
 * base class for a data point for an account
 *
-* @author: Bradley Booth, Academy of Interactive Entertainment, 2018s
+* @author: Bradley Booth, Academy of Interactive Entertainment, 2018
 */
 class BaseData
 {
@@ -34,6 +26,7 @@ public:
 
 	//name of the data
 	string name;
+	bool isArray = false;
 
 	/*
 	* BaseData()

@@ -318,22 +318,35 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AccountInfo.h" />
+    <ClInclude Include="AccountManager.h" />
+    <ClInclude Include="ArrayData.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataConverter.h" />
+    <ClInclude Include="Delimiter.h" />
     <ClInclude Include="dllimport.h" />
     <ClInclude Include="FloatData.h" />
     <ClInclude Include="GameAnalytics.h" />
+    <ClInclude Include="HeatmapReport.h" />
     <ClInclude Include="IntData.h" />
+    <ClInclude Include="MatrixData.h" />
     <ClInclude Include="StringData.h" />
     <ClInclude Include="StringHelper.h" />
+    <ClInclude Include="TableReport.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AccountInfo.cpp" />
+    <ClCompile Include="AccountManager.cpp" />
+    <ClCompile Include="ArrayData.cpp" />
     <ClCompile Include="DataConverter.cpp" />
     <ClCompile Include="FloatData.cpp" />
     <ClCompile Include="GameAnalytics.cpp" />
+    <ClCompile Include="HeatmapReport.cpp" />
     <ClCompile Include="IntData.cpp" />
+    <ClCompile Include="MatrixData.cpp" />
     <ClCompile Include="StringData.cpp" />
     <ClCompile Include="StringHelper.cpp" />
+    <ClCompile Include="TableReport.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

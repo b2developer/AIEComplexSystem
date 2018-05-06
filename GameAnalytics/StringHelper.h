@@ -19,3 +19,15 @@ using namespace std;
 * @returns vector<string> - a list of sub-strings 
 */
 DLL_EXP vector<string> split(string data, char split);
+
+/*
+* find
+*
+* locates the first instance of the char 'key' in the
+* string 'data' and returns its index in the string
+*
+* @param string data - the string to search
+* @param char key - the char to search for
+* @returns int - the index of the first instance (-1 if it doesn't exist)
+*/
+DLL_EXP int find(string data, char key);

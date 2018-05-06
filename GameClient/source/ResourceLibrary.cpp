@@ -17,9 +17,16 @@ ResourceLibrary::ResourceLibrary()
 	//------------
 
 	addition = rootPath;
-	addition += "/textures/testTexture.png";
+	addition += "/textures/blue.png";
 
-	m_testTexture = new aie::Texture(addition.c_str());
+	m_blue = new aie::Texture(addition.c_str());
+
+	//------------
+
+	addition = rootPath;
+	addition += "/textures/red.png";
+
+	m_red = new aie::Texture(addition.c_str());
 
 	//------------
 }
@@ -28,7 +35,8 @@ ResourceLibrary::ResourceLibrary()
 ResourceLibrary::~ResourceLibrary()
 {
 	delete m_font;
-	delete m_testTexture;
+	delete m_blue;
+	delete m_red;
 }
 
 //singleton instance retrieval

@@ -190,6 +190,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\dependencies\sfml\include\;$(SolutionDir)\GameAnalytics\;</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -279,6 +280,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\dependencies\sfml\include\;$(SolutionDir)\GameAnalytics\;</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -306,14 +308,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AccountInfo.cpp" />
-    <ClCompile Include="AccountManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ServerProcessor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AccountInfo.h" />
-    <ClInclude Include="AccountManager.h" />
     <ClInclude Include="ServerProcessor.h" />
     <ClInclude Include="StringHelper.h" />
   </ItemGroup>

@@ -1,9 +1,10 @@
 #include "StringData.h"
+#include "Delimiter.h"
 
 //convert to string
 string StringData::toString()
 {
-	string serial = name + "," + "@s" + data;
+	string serial = name + delimiter + "@s" + data;
 
 	return serial;
 }
@@ -11,7 +12,7 @@ string StringData::toString()
 //test if the string can be deserialised
 bool StringData::canDeserialise(string data)
 {
-	vector<string> parts = split(data, ',');
+	vector<string> parts = split(data, delimiter.c_str()[0]);
 
 	//check that the data is long enough
 	if (parts[1].length() >= 3)
@@ -31,7 +32,7 @@ bool StringData::canDeserialise(string data)
 //create data out of it's string form
 BaseData * StringData::deserialise(string data)
 {
-	vector<string> parts = split(data, ',');
+	vector<string> parts = split(data, delimiter.c_str()[0]);
 
 	string sub = parts[1].substr(2, parts[1].length() - 2);
 

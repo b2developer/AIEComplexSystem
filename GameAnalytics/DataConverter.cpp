@@ -3,6 +3,8 @@
 #include "IntData.h"
 #include "FloatData.h"
 #include "StringData.h"
+#include "ArrayData.h"
+#include "MatrixData.h"
 
 //constructor
 DataConverter::DataConverter()
@@ -10,6 +12,8 @@ DataConverter::DataConverter()
 	convertors.push_back(new IntData());
 	convertors.push_back(new FloatData());
 	convertors.push_back(new StringData());
+	convertors.push_back(new ArrayData());
+	convertors.push_back(new MatrixData());
 }
 
 //destructor
